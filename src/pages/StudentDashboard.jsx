@@ -5,15 +5,13 @@ import Cookies from 'js-cookie';
 export default function StudentDashboard() {
     const navigate = useNavigate();
 
-    // Obtener el nombre del usuario de las cookies
     const userName = Cookies.get('user') ? JSON.parse(Cookies.get('user')).name : '';
 
     const handleLogOut = () => {
-        // Eliminar las cookies de autenticación al cerrar sesión
         Cookies.remove('auth');
         Cookies.remove('user');
         Cookies.remove('auth-type');
-        navigate("/login"); // Redirigir al usuario a la página de inicio de sesión al cerrar sesión
+        navigate("/login");
     }
 
     return (
