@@ -4,11 +4,11 @@ import Cookies from 'js-cookie';
 import "../styles/login.css"
 
 export default function Login() {
-    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
     const [formError, setFormError] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const [emailInputIsInvalid, setEmailInputIsInvalid] = useState(false)
+    const [userInputIsInvalid, setUserInputIsInvalid] = useState(false)
     const [passwordInputIsInvalid, setPasswordInputIsInvalid] = useState(false)
     
     const navigate = useNavigate();
@@ -17,18 +17,18 @@ export default function Login() {
 
     const checkFormFields = () => {
         setFormError("");
-        setEmailInputIsInvalid(false);
+        setUserInputIsInvalid(false);
         setPasswordInputIsInvalid(false);
-        if(email === "") {
-            setFormError("Correo requerido");
-            setEmailInputIsInvalid(true);
+        if(user === "") {
+            setFormError("Usuario requerido");
+            setUserInputIsInvalid(true);
             return;
         }
-        if(!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            setFormError("Correo inválido");
-            setEmailInputIsInvalid(true);
+        if (!/^(s|S)\d{8}$|^[a-z]+$/.test(user)) {
+            setFormError("Usuario inválido");
+            setUserInputIsInvalid(true);
             return;
-        }
+        }        
         if(password === "") {
             setFormError("Contraseña requerida");
             setPasswordInputIsInvalid(true);
@@ -43,7 +43,7 @@ export default function Login() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({user, password})
         })
         .then(async r => {
             switch(r.status) {
@@ -53,7 +53,7 @@ export default function Login() {
                     Cookies.set('auth', responseBody.token, { expires: expirationTime });
                     Cookies.set('user', JSON.stringify(responseBody.user), { expires: expirationTime });
                     Cookies.set('auth-type', "account", { expires: expirationTime });
-                    navigate("/");
+                    navigate("/alumnos-caafi");
                     break;
                 }
                 case 401: {
@@ -74,15 +74,16 @@ export default function Login() {
 
     return <div className="d-flex align-items-center justify-content-center vh-100">
         <form>
-            <div className="card mx-auto login-form shadow-lg">
-                <div className="card-body">
+            <div className="cardo mx-auto login-form">
+                <div className="cardo-body">
                     <div className="logo">
-                        <img src={logoUrl} alt="" />
+                        <img src={logoUrl} alt="Logo CAAFI"/>
                         <h4>Inicio de sesión</h4>
                     </div>
                     <div className="mb-3">
-                        <label for="input-email" className="form-label">{"Usuario"}</label>
-                        <input type="email" className={!emailInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-email" value={email} onChange={ev => setEmail(ev.target.value)}/>
+                        <label for="input-user" className="form-label">{"Usuario"}</label>
+                        <input type="user" className={!userInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-user" value={user} onChange={ev => setUser(ev.target.value)} placeholder="Matrícula o cuenta"/>
+                        <span className="error-message text-danger card-text">{formError}</span>
                     </div>
                     <div className="mb-3">
                         <label for="input-password" className="form-label">{"Contraseña"}</label>
@@ -93,16 +94,21 @@ export default function Login() {
                             </span>
                         </div>
                     </div>
-                    <div className="text-end w-100">
-                        <a href="#!" onClick={() => navigate("/recoverpassword")}>{"¿Olvidaste tu contraseña?"}</a>
+                    <div className="d-flex flex-row-reverse align-items-center justify-content-center">
+                        <button type="button" className="btn btn-success" style={{ width: "100%", maxWidth: "calc(100% - 5px)" }} onClick={checkFormFields}>{"Iniciar sesión"}</button>
                     </div>
-                </div>
 
-                <div className="card-footer d-flex flex-row-reverse align-items-center justify-content-between">
-                    <button type="button" className="btn btn-primary" onClick={checkFormFields}>{"Iniciar sesión"}</button>
-                    <span className="error-message text-danger card-text">{formError}</span>
+                    <p className="align-items-center justify-content-center">o</p>
+                    <div className="text-end w-100 align-items-center justify-content-center">
+                        <a className="ar-text" onClick={() => navigate("/solicitar-registo")}>{"Solicita tu inscripción AQUÍ"}</a>
+                        <br></br>
+                        <a className="rp-text" onClick={() => navigate("/recuperar-cuenta")}>{"¿Olvidaste tu contraseña?"}</a>
+                    </div>
                 </div>
             </div>
         </form>
+        <div className="footer-text">
+                © 2024 Universidad Veracruzana. Todos los derechos reservados
+        </div>
     </div>
 }

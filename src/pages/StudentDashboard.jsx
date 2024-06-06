@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
+
 export default function StudentDashboard() {
     const navigate = useNavigate();
 
@@ -11,7 +12,7 @@ export default function StudentDashboard() {
         Cookies.remove('auth');
         Cookies.remove('user');
         Cookies.remove('auth-type');
-        navigate("/login");
+        navigate("/caafi");
     }
 
     return (
@@ -20,8 +21,9 @@ export default function StudentDashboard() {
                 <div className="card-body">
                     <h4>Bienvenido {userName}</h4>
                     <div className="mt-4">
-                        <button type="button" className="btn btn-primary me-3" onClick={() => navigate("/bitacoras")}>Bitácoras</button>
-                        <button type="button" className="btn btn-primary" onClick={() => navigate("/visitas")}>Visitas</button>
+                        <button type="button" className="btn btn-student 1" onClick={() => navigate("/bitacoras")}>Bitácoras</button>
+                        <button type="button" className="btn btn-student 2" onClick={() => navigate("/visitas")}>Visitas</button>
+                        <button type="button" className="btn btn-cabin 1" onClick={() => navigate("/visitas")}>Visitas</button>
                     </div>
                 </div>
                 <div className="card-footer d-flex justify-content-end">
