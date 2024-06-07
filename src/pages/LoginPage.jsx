@@ -13,7 +13,7 @@ export default function Login() {
     
     const navigate = useNavigate();
 
-    const logoUrl = "https://cdn.discordapp.com/attachments/1159345719749136386/1244803015295107082/descargar-removebg-preview.png?ex=665670a6&is=66551f26&hm=efa58b1d61082a9f2278796c335d9c4cf89e68c3f46901eac26b3585ae1951a0&";
+    const logoUrl = require('../img/caafi.png')
 
     const checkFormFields = () => {
         setFormError("");
@@ -82,13 +82,13 @@ export default function Login() {
                     </div>
                     <div className="mb-3">
                         <label for="input-user" className="form-label">{"Usuario"}</label>
-                        <input type="user" className={!userInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-user" value={user} onChange={ev => setUser(ev.target.value)} placeholder="Matrícula o cuenta"/>
+                        <input type="user" className={!userInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-user" value={user} onChange={ev => setUser(ev.target.value)} placeholder="Matrícula o cuenta" autoComplete="off"/>
                         <span className="error-message text-danger card-text">{formError}</span>
                     </div>
                     <div className="mb-3">
                         <label for="input-password" className="form-label">{"Contraseña"}</label>
                         <div className="input-group">
-                            <input type={passwordVisible ? "text" : "password"} className={!passwordInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-password" value={password} onChange={ev => setPassword(ev.target.value)}/>
+                            <input type={passwordVisible ? "text" : "password"} className={!passwordInputIsInvalid ? "form-control" : "form-control is-invalid"} id="input-password" value={password} onChange={ev => setPassword(ev.target.value)} autoComplete="off"/>
                             <span className="input-group-text" onClick={() => setPasswordVisible(!passwordVisible)} style={{cursor: "pointer"}}>
                                 <i className={!passwordVisible ? "bi bi-eye" : "bi bi-eye-slash"} id="togglePassword"></i>
                             </span>
