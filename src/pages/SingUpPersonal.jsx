@@ -33,15 +33,70 @@ export default function SingUpPersonal() {
 
                 </div>
 
-                <div>
+                
                 <h1 className="singup-title">
                     Registro de Personal CAAFI
                 </h1>
-                </div>
-                
+               
                 <div className="singup-form">
-                    
-                </div>
-        </div>
+                <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="usuario">Usuario:</label>
+                            <input
+                            type="text"
+                            id="usuario"
+                            value={usuario}
+                            onChange={(e) => setUsuario(e.target.value)}
+                            required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="nombre">Nombre(s):</label>
+                            <input
+                            type="text"
+                            id="nombre"
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                            required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="apellidos">Apellidos:</label>
+                            <input
+                            type="text"
+                            id="apellidos"
+                            value={apellidos}
+                            onChange={(e) => setApellidos(e.target.value)}
+                            required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="contrasena">Contraseña:</label>
+                            <input
+                            type="password"
+                            id="contrasena"
+                            value={contrasena}
+                            onChange={(e) => setContrasena(e.target.value)}
+                            required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="tipoUsuario">Puesto:</label>
+                            <select
+                            id="tipoUsuario"
+                            value={tipoUsuario}
+                            onChange={(e) => setTipoUsuario(e.target.value)}
+                            required
+                            >
+                            <option value="">Seleccionar tipo</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="profesor">Profesor</option>
+                            <option value="administrativo">Administrativo</option>
+                            </select>
+                        </div>
+                        <button type="submit">Registrar</button>
+                        </form>
+                             </div>
+                            </div>
     );
 }

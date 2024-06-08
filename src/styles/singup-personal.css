@@ -34,6 +34,7 @@ body {
     color: #6d6d6d;
     padding-left: 120px;
     padding-top: 20px;
+    margin-bottom: 0%;
     font-size: 25px;
 }
 
@@ -43,10 +44,20 @@ body {
     height: 100%;
 }
 
-  .login-form {
-    margin: 0 auto;
-    text-align: left;
-    opacity: 0.975;
-    max-width: 24rem;
-    min-width: 14rem;
+  .singup-form {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; /* Hace que el contenedor ocupe toda la altura de la pantalla */
+  }
+  
+
+  .form-wrapper div {
+    flex: 1 1 calc(50% - 10px); /* Los elementos ocuparán el 50% del ancho del contenedor menos el espacio entre ellos */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-wrapper div.full-width {
+    flex: 1 1 100%; /* El elemento ocupa todo el ancho del contenedor */
   }
