@@ -48,16 +48,16 @@ body {
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 100vh; /* Hace que el contenedor ocupe toda la altura de la pantalla */
+    height: 100vh;
   }
   
 
   .form-wrapper div {
-    flex: 1 1 calc(50% - 10px); /* Los elementos ocuparán el 50% del ancho del contenedor menos el espacio entre ellos */
+    flex: 1 1 calc(50% - 10px);
     display: flex;
     flex-direction: column;
   }
   
   .form-wrapper div.full-width {
-    flex: 1 1 100%; /* El elemento ocupa todo el ancho del contenedor */
+    flex: 1 1 100%;
   }
