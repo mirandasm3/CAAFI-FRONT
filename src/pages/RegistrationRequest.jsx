@@ -37,7 +37,7 @@ export default function RegistrationRequest() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Manejar la lógica de envío aquí
+    //APIPI
   };
 
   return (
@@ -88,70 +88,72 @@ export default function RegistrationRequest() {
                   </Form.Group>
                 </Col>
               </Row>
-              {studentType === "alumnoUV" && (
+              {(studentType === "alumnoUV" || studentType === "delex") && (
                 <Row>
-                  <Col md={4}>
-                    <Form.Group controlId="formFacultad">
-                      <Form.Label>Facultad</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={facultad}
-                        onChange={(e) => setFacultad(e.target.value)}
-                      >
-                        <option>Selecciona una opción</option>
-                        {/* Opciones adicionales */}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col md={4}>
-                    <Form.Group controlId="formPrograma">
-                      <Form.Label>Programa educativo</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={programa}
-                        onChange={(e) => setPrograma(e.target.value)}
-                      >
-                        <option>Selecciona una opción</option>
-                        {/* Opciones adicionales */}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                  <Col md={4}>
-                    <Form.Group controlId="formSemestre">
-                      <Form.Label>Semestre</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={semestre}
-                        onChange={(e) => setSemestre(e.target.value)}
-                      >
-                        <option>Selecciona una opción</option>
-                        <option>1er Semestre</option>
-                        <option>2do Semestre</option>
-                        <option>3er Semestre</option>
-                        <option>4to Semestre</option>
-                        <option>5to Semestre</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
-                </Row>
-              )}
-              {studentType === "delex" && (
-                <Row>
-                  <Col md={4}>
-                    <Form.Group controlId="formNivel">
-                      <Form.Label>Nivel</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={nivel}
-                        onChange={(e) => setNivel(e.target.value)}
-                      >
-                        <option>Selecciona una opción</option>
-                        <option>Principiante</option>
-                        <option>Intermedio</option>
-                        <option>Avanzado</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+                  {studentType === "alumnoUV" && (
+                    <>
+                      <Col md={4}>
+                        <Form.Group controlId="formFacultad">
+                          <Form.Label>Facultad</Form.Label>
+                          <Form.Control
+                            as="select"
+                            value={facultad}
+                            onChange={(e) => setFacultad(e.target.value)}
+                          >
+                            <option>Selecciona una opción</option>
+                            {/* Opciones adicionales */}
+                          </Form.Control>
+                        </Form.Group>
+                      </Col>
+                      <Col md={4}>
+                        <Form.Group controlId="formPrograma">
+                          <Form.Label>Programa educativo</Form.Label>
+                          <Form.Control
+                            as="select"
+                            value={programa}
+                            onChange={(e) => setPrograma(e.target.value)}
+                          >
+                            <option>Selecciona una opción</option>
+                            {/* Opciones adicionales */}
+                          </Form.Control>
+                        </Form.Group>
+                      </Col>
+                      <Col md={4}>
+                        <Form.Group controlId="formSemestre">
+                          <Form.Label>Semestre</Form.Label>
+                          <Form.Control
+                            as="select"
+                            value={semestre}
+                            onChange={(e) => setSemestre(e.target.value)}
+                          >
+                            <option>Selecciona una opción</option>
+                            <option>1er Semestre</option>
+                            <option>2do Semestre</option>
+                            <option>3er Semestre</option>
+                            <option>4to Semestre</option>
+                            <option>5to Semestre</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Col>
+                    </>
+                  )}
+                  {studentType === "delex" && (
+                    <Col md={4}>
+                      <Form.Group controlId="formNivel">
+                        <Form.Label>Nivel</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={nivel}
+                          onChange={(e) => setNivel(e.target.value)}
+                        >
+                          <option>Selecciona una opción</option>
+                          <option>Principiante</option>
+                          <option>Intermedio</option>
+                          <option>Avanzado</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  )}
                 </Row>
               )}
               <Form.Group controlId="formIdiomas">
@@ -184,49 +186,49 @@ export default function RegistrationRequest() {
                         label="Agregar documento"
                         custom
                         onChange={(e) => handleFileChange(e, setComprobantePago)}
+                        />
+                      </div>
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formBitacoraCero">
+                      <Form.Label>Bitácora cero</Form.Label>
+                      <div className="file-input">
+                        {bitacoraCero ? (
+                          <p>{bitacoraCero.name}</p>
+                        ) : (
+                          <p>No hay documentos precargados</p>
+                        )}
+                        <Form.File
+                          label="Agregar documento"
+                          custom
+                          onChange={(e) => handleFileChange(e, setBitacoraCero)}
+                          disabled={registrationType === "reinscripcion"}
+                        />
+                      </div>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12}>
+                    <Form.Group controlId="formPassword">
+                      <Form.Label>Contraseña</Form.Label>
+                      <Form.Control
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Contraseña"
                       />
-                    </div>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="formBitacoraCero">
-                    <Form.Label>Bitácora cero</Form.Label>
-                    <div className="file-input">
-                      {bitacoraCero ? (
-                        <p>{bitacoraCero.name}</p>
-                      ) : (
-                        <p>No hay documentos precargados</p>
-                      )}
-                      <Form.File
-                        label="Agregar documento"
-                        custom
-                        onChange={(e) => handleFileChange(e, setBitacoraCero)}
-                        disabled={registrationType === "reinscripcion"}
-                      />
-                    </div>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <Form.Group controlId="formPassword">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Contraseña"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Button type="submit" className="btn-submit">
-                Enviar
-              </Button>
-            </Form>
-          </div>
-        </Col>
-      </Row>
-    </Container>
-  );
-}
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Button type="submit" className="btn-submit">
+                  Enviar
+                </Button>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }  

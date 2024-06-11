@@ -17,7 +17,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     const logoUrl = require('../img/caafi.png');
-    const uv = require('../img/Universidad-Veracruzana-Title.png');
+    const bg = require('../img/background.png');
 
     const checkFormFields = () => {
         setFormUError("");

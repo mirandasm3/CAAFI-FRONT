@@ -35,7 +35,7 @@
     opacity: 0.975;
     max-width: 28rem;
     min-width: 14rem;
-    width: 300%;
+    width: 200%;
 }
   
   .login-form .logo {
@@ -46,7 +46,7 @@
   }
   
   .login-form .logo img {
-    width: 50%;
+    width: 30%;
     margin-bottom: 1rem;
   }
   
