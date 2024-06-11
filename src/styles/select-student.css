@@ -1,0 +1,45 @@
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+}
+
+.img-bg {
+  padding: 0;
+}
+
+.img-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  background-color: #90A1A0;
+  text-align: center;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo img {
+  margin-bottom: 20px;
+}
+
+.logo h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 20px;
+}

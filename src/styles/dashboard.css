@@ -1,0 +1,97 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .dashboard-logo {
+    height: 60px;
+  }
+  
+  .dashboard-user-icon {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .dashboard-left {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+  }
+  
+  .dashboard-left p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-stats {
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-stats h2 {
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .dashboard-right {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .dashboard-btn {
+    width: 80%;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn-gray {
+    background-color: #6c757d;
+  }
+  
+  .btn-darkgray {
+    background-color: #343a40;
+  }
+  
+  .btn-blue {
+    background-color: #354968;
+  }
+  
+  .btn-lightblue {
+    background-color: #50868f;
+  }
+  
+  .btn-green {
+    background-color: #375c3f;
+  }
+  
+  .dashboard-footer {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+  }
+  
