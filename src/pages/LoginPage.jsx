@@ -83,7 +83,7 @@ export default function Login() {
                 <form autoComplete="off">
                     <div className="cardo mx-auto login-form">
                         <div className="cardo-body">
-                            <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '0', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px' }}>
+                            <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
                                 <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
                             </div>
                             <div className="logo">

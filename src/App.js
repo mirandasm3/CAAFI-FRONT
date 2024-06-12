@@ -17,7 +17,7 @@ function App() {
               <Route path="/" element={<Navigate to="/caafi" />} />
               <Route path="/caafi" element={<Login/>} />
               <Route path="/registro" element={<SelectStudent/>} />
-              <Route path="/solicitud-registro" element={<RegistrationRequest/>} />
+              <Route path="/registroa" element={<RegistrationRequest/>} />
               <Route path="/inicio" element={<Dashboard/>} />
               <Route path="/registrar-personal-caafi" element={<SingUpPersonal/>} />
               <Route path="/reportes" element={<StatsReports/>} />

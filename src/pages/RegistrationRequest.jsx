@@ -6,7 +6,7 @@ import "../styles/registration-request.css";
 export default function RegistrationRequest() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { studentType, registrationType } = location.state;
+  const { studentType, registrationType } = location.state || {};
 
   const [matricula, setMatricula] = useState("");
   const [nombre, setNombre] = useState("");
@@ -37,7 +37,7 @@ export default function RegistrationRequest() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //APIPI
+    // Lógica para manejar el submit
   };
 
   return (
@@ -186,49 +186,49 @@ export default function RegistrationRequest() {
                         label="Agregar documento"
                         custom
                         onChange={(e) => handleFileChange(e, setComprobantePago)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Form.Group controlId="formBitacoraCero">
-                      <Form.Label>Bitácora cero</Form.Label>
-                      <div className="file-input">
-                        {bitacoraCero ? (
-                          <p>{bitacoraCero.name}</p>
-                        ) : (
-                          <p>No hay documentos precargados</p>
-                        )}
-                        <Form.File
-                          label="Agregar documento"
-                          custom
-                          onChange={(e) => handleFileChange(e, setBitacoraCero)}
-                          disabled={registrationType === "reinscripcion"}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={12}>
-                    <Form.Group controlId="formPassword">
-                      <Form.Label>Contraseña</Form.Label>
-                      <Form.Control
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Contraseña"
                       />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Button type="submit" className="btn-submit">
-                  Enviar
-                </Button>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }  
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="formBitacoraCero">
+                    <Form.Label>Bitácora cero</Form.Label>
+                    <div className="file-input">
+                      {bitacoraCero ? (
+                        <p>{bitacoraCero.name}</p>
+                      ) : (
+                        <p>No hay documentos precargados</p>
+                      )}
+                      <Form.File
+                        label="Agregar documento"
+                        custom
+                        onChange={(e) => handleFileChange(e, setBitacoraCero)}
+                        disabled={registrationType === "reinscripcion"}
+                      />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <Form.Group controlId="formPassword">
+                    <Form.Label>Contraseña</Form.Label>
+                    <Form.Control
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Contraseña"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Button type="submit" className="btn-submit">
+                Enviar
+              </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
