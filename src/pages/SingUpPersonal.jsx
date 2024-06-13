@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 import "../styles/singup-personal.css";
 import UserIcon from "../components/UserIcon.jsx";
 
@@ -9,7 +11,7 @@ export default function SingUpPersonal() {
     const [contrasena, setContrasena] = useState('');
     const [tipoUsuario, setTipoUsuario] = useState('');
 
-
+ const navigate = useNavigate();
     const logoURL = require('../img/caafi-w.png');
     const uvTitleURL = require('../img/Universidad-Veracruzana-Title.png');
 
@@ -51,85 +53,91 @@ export default function SingUpPersonal() {
                         <UserIcon id="userIcon"/>
                     </div>
             </div>
+                
+            <div style={{ display:'flex', alignItems: 'left' }}>
+              <Button variant="link" onClick={() => navigate("/caafi")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+                <i className="bi bi-arrow-left"></i>
+              </Button>
+            </div>
 
                 <h1 className="singup-title">Registro de Personal CAAFI</h1>
                 <div className="signup-form">
-                         <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="usuario">Usuario:</label>
-          <input
-            type="text"
-            id="usuario"
-            value={usuario}
-            onChange={(e) => {
-              const newValue = e.target.value;
-              if (validateUsuario(newValue)) {
-                setUsuario(newValue);
-              }
-            }}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="apellidos">Apellidos:</label>
-          <input
-            type="text"
-            id="apellidos"
-            value={apellidos}
-            onChange={(e) => {
-              const newValue = e.target.value;
-              if (validateApellidosNombre(newValue)) {
-                setApellidos(newValue);
-              }
-            }}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="contrasena">Contraseña:</label>
-          <input
-            type="password"
-            id="contrasena"
-            value={contrasena}
-            onChange={(e) => setContrasena(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="nombre">Nombre(s):</label>
-          <input
-            type="text"
-            id="nombre"
-            value={nombre}
-            onChange={(e) => {
-              const newValue = e.target.value;
-              if (validateApellidosNombre(newValue)) {
-                setNombre(newValue);
-              }
-            }}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="tipoUsuario">Puesto:</label>
-          <select
-            id="tipoUsuario"
-            value={tipoUsuario}
-            onChange={(e) => setTipoUsuario(e.target.value)}
-            required
-          >
-            <option value="">Seleccionar tipo</option>
-            <option value="estudiante">Estudiante</option>
-            <option value="profesor">Profesor</option>
-            <option value="administrativo">Administrativo</option>
-          </select>
-        </div>
-        <button type="submit" className="submit-button">
-          Registrar
-        </button>
-      </form>
+                    <form onSubmit={handleSubmit}>
+                      <div className="form-group">
+                        <label htmlFor="usuario">Usuario:</label>
+                        <input
+                          type="text"
+                          id="usuario"
+                          value={usuario}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            if (validateUsuario(newValue)) {
+                              setUsuario(newValue);
+                            }
+                          }}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="apellidos">Apellidos:</label>
+                        <input
+                          type="text"
+                          id="apellidos"
+                          value={apellidos}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            if (validateApellidosNombre(newValue)) {
+                              setApellidos(newValue);
+                            }
+                          }}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="contrasena">Contraseña:</label>
+                        <input
+                          type="password"
+                          id="contrasena"
+                          value={contrasena}
+                          onChange={(e) => setContrasena(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="nombre">Nombre(s):</label>
+                        <input
+                          type="text"
+                          id="nombre"
+                          value={nombre}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            if (validateApellidosNombre(newValue)) {
+                              setNombre(newValue);
+                            }
+                          }}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="tipoUsuario">Puesto:</label>
+                        <select
+                          id="tipoUsuario"
+                          value={tipoUsuario}
+                          onChange={(e) => setTipoUsuario(e.target.value)}
+                          required
+                        >
+                          <option value="">Seleccionar tipo</option>
+                          <option value="estudiante">Estudiante</option>
+                          <option value="profesor">Profesor</option>
+                          <option value="administrativo">Administrativo</option>
+                        </select>
+                      </div>
+                      <button type="submit" className="submit-button">
+                        Registrar
+                      </button>
+                  </form>
             </div> 
-        </div>
+      </div>
     );
 }
 
