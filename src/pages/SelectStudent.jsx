@@ -20,7 +20,7 @@ export default function SelectStudent() {
   };
 
   const handleNextButtonClick = () => {
-    navigate("/registroa", { state: { studentType, registrationType } });
+    navigate("/solicitud-registro", { state: { studentType, registrationType } });
   };
 
   return (

@@ -58,7 +58,8 @@ export default function Login() {
                     Cookies.set('auth', responseBody.token, { expires: expirationTime });
                     Cookies.set('user', JSON.stringify(responseBody.user), { expires: expirationTime });
                     Cookies.set('auth-type', "account", { expires: expirationTime });
-                    navigate("/alumnos-caafi");
+                    Cookies.set('user-type', responseBody.user.type, { expires: expirationTime });
+                    navigate("/inicio");
                     break;
                 }
                 case 401: {
