@@ -44,10 +44,11 @@ body {
   height: auto;
 }
 
-.grey-block userIconImages{
+#userIcon {
   position: absolute;
   bottom: 0;
-  right: 45;
+  right: 45px; 
+  width: 200px;
   height: auto;
 }
 
