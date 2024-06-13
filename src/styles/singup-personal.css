@@ -80,7 +80,20 @@ padding: 5px;
   display: flex;
   flex-direction: column;
   margin-bottom: 1px;
+
 }
+
+.signup-form input,
+.signup-form select {
+
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px; /* Ajusta este valor según el redondeo deseado */
+  outline: none; /* Quita el borde de enfoque predeterminado */
+  height: 40px;
+  width: 400px;
+}
+
 
 .form-group:nth-child(4),
 .form-group:nth-child(6) {
@@ -92,16 +105,18 @@ button.submit-button {
   color: white;
   grid-column: 2;
   height: 40px;
-  margin-top: 70px;
+  margin-top: 90px;
+  margin-left: 34px;
 }
 
 label {
   margin-bottom: 5px;
 }
 
-.form-group button, select, button {
-  padding: 0px;
-  font-size: 1em;
-  width: 100%;
-  box-sizing: border-box;
+
+.registro-exitoso {
+  background-color: white; /* Color de fondo verde */
+  color: black; /* Color de texto blanco */
+  padding: 10px; /* Espacio interno alrededor del texto */
+  margin-top: 10px; /* Margen superior */
 }

@@ -17,8 +17,16 @@ export default function SingUpPersonal() {
         return /^[a-zA-Z0-9]+$/.test(value);
       };
     
-      const validateApellidosNombre = (value) => {
+    const validateApellidosNombre = (value) => {
         return /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value);
+    };
+
+    const mostrarMensajeExito = () => {
+        var registroExitoso;
+        if (registroExitoso) {
+            alert( '¡Registro exitoso! El registro del personal ha sido guardado correctamente.');
+        }
+        return null; // Retorna null si no se cumple la condición de registro exitoso
       };
 
     const handleSubmit = (event) => {
