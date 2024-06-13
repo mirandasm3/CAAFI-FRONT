@@ -1,0 +1,86 @@
+.bitacoras-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .bitacoras-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .bitacoras-logo {
+    height: 60px;
+  }
+  
+  .bitacoras-user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .bitacoras-user-info span {
+    margin-right: 10px;
+  }
+  
+  .bitacoras-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .bitacoras-back {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .bitacoras-back i {
+    margin-right: 10px;
+  }
+  
+  .bitacoras-search {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .bitacoras-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+  
+  .bitacoras-table th,
+  .bitacoras-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .bitacoras-table th {
+    background-color: #e9ecef;
+  }
+  
+  .bitacoras-button {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .bitacoras-footer {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+  }
+  
