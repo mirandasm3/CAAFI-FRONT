@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import BinnacleHistory from './pages/BinnacleHistory';
 import StatsReports from './pages/StatsReports';
 import RegistrationRequest from './pages/RegistrationRequest';
+import TestLogin from './pages/TestLogin';
 
 
 function App() {
@@ -17,11 +18,12 @@ function App() {
               <Route path="/" element={<Navigate to="/caafi" />} />
               <Route path="/caafi" element={<Login/>} />
               <Route path="/registro" element={<SelectStudent/>} />
-              <Route path="/registroa" element={<RegistrationRequest/>} />
+              <Route path="/solicitud-registro" element={<RegistrationRequest/>} />
               <Route path="/inicio" element={<Dashboard/>} />
               <Route path="/registrar-personal-caafi" element={<SingUpPersonal/>} />
               <Route path="/reportes" element={<StatsReports/>} />
               <Route path="/historial-bitacoras" element={<BinnacleHistory/>} />
+              <Route path="/test-login" element={<TestLogin />} /> 
               <Route path="*" element={<h1>404</h1>} />
           </Routes>
       </BrowserRouter>

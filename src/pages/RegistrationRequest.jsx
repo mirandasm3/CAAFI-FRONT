@@ -1,234 +1,339 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Form, Row, Col, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
+import Cookies from 'js-cookie';
 import "../styles/registration-request.css";
 
 export default function RegistrationRequest() {
-  const navigate = useNavigate();
   const location = useLocation();
   const { studentType, registrationType } = location.state || {};
+  const navigate = useNavigate();
 
-  const [matricula, setMatricula] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [facultad, setFacultad] = useState("");
-  const [programa, setPrograma] = useState("");
-  const [semestre, setSemestre] = useState("");
-  const [nivel, setNivel] = useState("");
-  const [idiomas, setIdiomas] = useState([]);
-  const [comprobantePago, setComprobantePago] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [paymentProof, setPaymentProof] = useState(null);
   const [bitacoraCero, setBitacoraCero] = useState(null);
-  const [password, setPassword] = useState("");
+  const [idiomas, setIdiomas] = useState([]);
+  const [faculties] = useState([
+    { id: 1, name: "Idiomas" },
+    { id: 2, name: "Estadística e Informática" },
+    { id: 3, name: "Economía" },
+    { id: 4, name: "Sociología" },
+    { id: 5, name: "Antropología" },
+    { id: 6, name: "Filosofía" },
+    { id: 7, name: "Historia" },
+    { id: 8, name: "Letras españolas" },
+  ]);
+  const [programs] = useState({
+    1: ['Opción 1', 'Opción 2', 'Opción 3'],
+    2: ['Opción 1', 'Opción 2', 'Opción 3'],
+    3: ['Opción 1', 'Opción 2', 'Opción 3'],
+    4: ['Opción 1', 'Opción 2', 'Opción 3'],
+    5: ['Opción 1', 'Opción 2', 'Opción 3'],
+    6: ['Opción 1', 'Opción 2', 'Opción 3'],
+    7: ['Opción 1', 'Opción 2', 'Opción 3'],
+    8: ['Opción 1', 'Opción 2', 'Opción 3']
+  });
+  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedPrograms, setSelectedPrograms] = useState([]);
+  const [semesters, setSemesters] = useState([]);
+  const [levels, setLevels] = useState([]);
 
-  const logoUrl = require('../img/caafi-w.png');
+  useEffect(() => {
+    setSemesters(Array.from({ length: 12 }, (_, i) => `Semestre ${i + 1}`));
+    setLevels(Array.from({ length: 9 }, (_, i) => `Nivel ${i + 1}`));
+  }, []);
 
-  const handleIdiomaChange = (event) => {
-    const value = event.target.value;
-    setIdiomas((prevIdiomas) =>
-      prevIdiomas.includes(value)
-        ? prevIdiomas.filter((idioma) => idioma !== value)
-        : [...prevIdiomas, value]
-    );
+  const handleFacultyChange = (event) => {
+    const facultyId = event.target.value;
+    setSelectedFaculty(facultyId);
+
+    const selectedFacultyPrograms = programs[facultyId] || [];
+    setSelectedPrograms(selectedFacultyPrograms);
   };
 
   const handleFileChange = (event, setFile) => {
     setFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  const handleRemoveFile = (setFile) => {
+    setFile(null);
+  };
+
+  const handleIdiomaChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setIdiomas([...idiomas, value]);
+    } else {
+      setIdiomas(idiomas.filter((idioma) => idioma !== value));
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    const matriculaPattern = /^[sS]\d{8}$/;
+
+    const form = document.forms["registrationForm"];
+    const fields = ["matricula", "name", "surname", "password"];
+    fields.forEach((field) => {
+      if (!form[field].value.trim()) {
+        errors[field] = "Este campo es obligatorio";
+      }
+    });
+
+    if (!matriculaPattern.test(form["matricula"].value)) {
+      errors["matricula"] = "Formato de matrícula inválido. Debe ser S00000000";
+    }
+
+    if (idiomas.length === 0) {
+      errors["idiomas"] = "Debe seleccionar al menos un idioma";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Lógica para manejar el submit
+    if (validateForm()) {
+      setShowConfirmModal(true);
+    }
+  };
+
+  const handleConfirm = async () => {
+    setShowConfirmModal(false);
+
+    const form = document.forms["registrationForm"];
+    const formData = new FormData();
+    formData.append("matricula", form["matricula"].value);
+    formData.append("nombre", form["name"].value);
+    formData.append("apellidos", form["surname"].value);
+    formData.append("password", form["password"].value);
+    formData.append("tipo", studentType);
+    formData.append("inscripcion", registrationType);
+    idiomas.forEach((idioma, index) => {
+      formData.append(`idiomas[${index}]`, idioma);
+    });
+
+    if (studentType === "alumnoUV") {
+      formData.append("facultad", form["faculty"].value);
+      formData.append("programaEducativo", form["program"].value);
+      formData.append("semestre", form["semester"].value);
+    } else if (studentType === "delex" && (registrationType === "primeraInscripcion" || registrationType === "reinscripcion")) {
+      formData.append("nivel", form["level"].value);
+    }
+
+    if (paymentProof) {
+      formData.append("comprobante1", paymentProof);
+    }
+
+    if (bitacoraCero) {
+      formData.append("comprobante2", bitacoraCero);
+    }
+
+    try {
+      const response = await fetch("http://localhost:9000/api/???", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('auth')}`
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        setShowSuccessModal(true);
+      } else {
+        const errorData = await response.json();
+        alert("Error: " + errorData.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error de red. Inténtelo de nuevo más tarde.");
+    }
+  };
+
+  const renderAdditionalFields = () => {
+    if (studentType === "alumnoUV") {
+      return (
+        <>
+          <div className="registration-form-group">
+            <label htmlFor="faculty">Facultad</label>
+            <select id="faculty" name="faculty" onChange={handleFacultyChange} value={selectedFaculty}>
+              <option value="">Selecciona una opción</option>
+              {faculties.map(faculty => (
+                <option key={faculty.id} value={faculty.id}>{faculty.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="registration-form-group">
+            <label htmlFor="program">Programa educativo</label>
+            <select id="program" name="program">
+              <option value="">Selecciona una opción</option>
+              {selectedPrograms.map((program, index) => (
+                <option key={index} value={program}>{program}</option>
+              ))}
+            </select>
+          </div>
+          <div className="registration-form-group">
+            <label htmlFor="semester">Semestre</label>
+            <select id="semester" name="semester">
+              <option value="">Selecciona una opción</option>
+              {semesters.map((semester, index) => (
+                <option key={index} value={semester}>{semester}</option>
+              ))}
+            </select>
+          </div>
+        </>
+      );
+    } else if (studentType === "delex" && (registrationType === "primeraInscripcion" || registrationType === "reinscripcion")) {
+      return (
+        <>
+          <div className="registration-form-group">
+            <label htmlFor="level">Nivel</label>
+            <select id="level" name="level">
+              <option value="">Selecciona una opción</option>
+              {levels.map((level, index) => (
+                <option key={index} value={level}>{level}</option>
+              ))}
+            </select>
+          </div>
+        </>
+      );
+    }
   };
 
   return (
-    <Container fluid className="vh-100">
-      <Row className="h-100 align-items-center justify-content-center">
-        <Col md={10} lg={8}>
-          <div className="registration-form">
-            <header className="d-flex justify-content-between align-items-center">
-              <img src={logoUrl} alt="Logo CAAFI" className="logo" />
-              <Button variant="link" onClick={() => navigate("/registro")}>
-                <i className="fas fa-arrow-left"></i> Regresar
-              </Button>
-            </header>
-            <h2>Registro de inscripción</h2>
-            <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col md={4}>
-                  <Form.Group controlId="formMatricula">
-                    <Form.Label>Matrícula</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={matricula}
-                      onChange={(e) => setMatricula(e.target.value)}
-                      placeholder="zs12345678"
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Group controlId="formNombre">
-                    <Form.Label>Nombre(s)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
-                      placeholder="Ej. Juan"
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Group controlId="formApellido">
-                    <Form.Label>Apellidos</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={apellido}
-                      onChange={(e) => setApellido(e.target.value)}
-                      placeholder="Ej. Pérez"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              {(studentType === "alumnoUV" || studentType === "delex") && (
-                <Row>
-                  {studentType === "alumnoUV" && (
-                    <>
-                      <Col md={4}>
-                        <Form.Group controlId="formFacultad">
-                          <Form.Label>Facultad</Form.Label>
-                          <Form.Control
-                            as="select"
-                            value={facultad}
-                            onChange={(e) => setFacultad(e.target.value)}
-                          >
-                            <option>Selecciona una opción</option>
-                            {/* Opciones adicionales */}
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                      <Col md={4}>
-                        <Form.Group controlId="formPrograma">
-                          <Form.Label>Programa educativo</Form.Label>
-                          <Form.Control
-                            as="select"
-                            value={programa}
-                            onChange={(e) => setPrograma(e.target.value)}
-                          >
-                            <option>Selecciona una opción</option>
-                            {/* Opciones adicionales */}
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                      <Col md={4}>
-                        <Form.Group controlId="formSemestre">
-                          <Form.Label>Semestre</Form.Label>
-                          <Form.Control
-                            as="select"
-                            value={semestre}
-                            onChange={(e) => setSemestre(e.target.value)}
-                          >
-                            <option>Selecciona una opción</option>
-                            <option>1er Semestre</option>
-                            <option>2do Semestre</option>
-                            <option>3er Semestre</option>
-                            <option>4to Semestre</option>
-                            <option>5to Semestre</option>
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </>
-                  )}
-                  {studentType === "delex" && (
-                    <Col md={4}>
-                      <Form.Group controlId="formNivel">
-                        <Form.Label>Nivel</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={nivel}
-                          onChange={(e) => setNivel(e.target.value)}
-                        >
-                          <option>Selecciona una opción</option>
-                          <option>Principiante</option>
-                          <option>Intermedio</option>
-                          <option>Avanzado</option>
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                  )}
-                </Row>
-              )}
-              <Form.Group controlId="formIdiomas">
-                <Form.Label>Idioma(s)</Form.Label>
-                <div className="d-flex flex-wrap">
-                  {["Inglés", "Francés", "Chino", "Japonés", "Italiano", "Alemán", "Portugués"].map((idioma) => (
-                    <Form.Check
-                      key={idioma}
-                      type="checkbox"
-                      label={idioma}
-                      value={idioma}
-                      checked={idiomas.includes(idioma)}
-                      onChange={handleIdiomaChange}
-                      className="mr-3"
-                    />
-                  ))}
-                </div>
-              </Form.Group>
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="formComprobantePago">
-                    <Form.Label>Comprobante de pago</Form.Label>
-                    <div className="file-input">
-                      {comprobantePago ? (
-                        <p>{comprobantePago.name}</p>
-                      ) : (
-                        <p>No hay documentos precargados</p>
-                      )}
-                      <Form.File
-                        label="Agregar documento"
-                        custom
-                        onChange={(e) => handleFileChange(e, setComprobantePago)}
-                      />
-                    </div>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="formBitacoraCero">
-                    <Form.Label>Bitácora cero</Form.Label>
-                    <div className="file-input">
-                      {bitacoraCero ? (
-                        <p>{bitacoraCero.name}</p>
-                      ) : (
-                        <p>No hay documentos precargados</p>
-                      )}
-                      <Form.File
-                        label="Agregar documento"
-                        custom
-                        onChange={(e) => handleFileChange(e, setBitacoraCero)}
-                        disabled={registrationType === "reinscripcion"}
-                      />
-                    </div>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <Form.Group controlId="formPassword">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Contraseña"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Button type="submit" className="btn-submit">
-                Enviar
-              </Button>
-            </Form>
+    <div className="registration-container">
+      <div className="registration-header">
+        <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
+          <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
+        </div>
+      </div>
+      <div className="registration-title" style={{ display: 'flex', alignItems: 'center' }}>
+        <Button variant="link" onClick={() => navigate("/registro")} style={{ color: 'black', fontSize: '30px', marginLeft: '-10px' }}>
+          <i className="bi bi-arrow-left"></i>
+        </Button>
+        <h2 style={{ marginLeft: '10px' }}>Registro de inscripción</h2>
+      </div>
+      <div className="registration-body">
+        <form name="registrationForm" onSubmit={handleFormSubmit}>
+          <div className="registration-form-group">
+            <label htmlFor="matricula">Matrícula</label>
+            <input type="text" id="matricula" name="matricula" placeholder="S00000000" required />
+            {formErrors.matricula && <div className="error-message">{formErrors.matricula}</div>}
           </div>
-        </Col>
-      </Row>
-    </Container>
+          <div className="registration-form-group">
+            <label htmlFor="name">Nombre(s)</label>
+            <input type="text" id="name" name="name" placeholder="Ej. Juan" required />
+            {formErrors.name && <div className="error-message">{formErrors.name}</div>}
+          </div>
+          <div className="registration-form-group">
+            <label htmlFor="surname">Apellidos</label>
+            <input type="text" id="surname" name="surname" placeholder="Ej. Pérez" required />
+            {formErrors.surname && <div className="error-message">{formErrors.surname}</div>}
+          </div>
+          <div className="registration-form-group">
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" id="password" name="password" required />
+            {formErrors.password && <div className="error-message">{formErrors.password}</div>}
+          </div>
+          {renderAdditionalFields()}
+          <div className="registration-form-group">
+            <label>Idioma(s)</label>
+            <div>
+              <input type="checkbox" id="ingles" name="idioma" value="ingles" onChange={handleIdiomaChange} />
+              <label htmlFor="ingles">Inglés</label>
+
+              <input type="checkbox" id="frances" name="idioma" value="frances" onChange={handleIdiomaChange} />
+              <label htmlFor="frances">Francés</label>
+
+              <input type="checkbox" id="chino" name="idioma" value="chino" onChange={handleIdiomaChange} />
+              <label htmlFor="chino">Chino</label>
+
+              <input type="checkbox" id="japones" name="idioma" value="japones" onChange={handleIdiomaChange} />
+              <label htmlFor="japones">Japonés</label>
+
+              <input type="checkbox" id="italiano" name="idioma" value="italiano" onChange={handleIdiomaChange} />
+              <label htmlFor="italiano">Italiano</label>
+
+              <input type="checkbox" id="aleman" name="idioma" value="aleman" onChange={handleIdiomaChange} />
+              <label htmlFor="aleman">Alemán</label>
+
+              <input type="checkbox" id="portugues" name="idioma" value="portugues" onChange={handleIdiomaChange} />
+              <label htmlFor="portugues">Portugués</label>
+              
+            </div>
+            {formErrors.idiomas && <div className="error-message">{formErrors.idiomas}</div>}
+          </div>
+          <div className="registration-file-upload-container">
+            <div className="registration-file-upload">
+              <p>Comprobante de pago</p>
+              {paymentProof ? (
+                <>
+                  <ul className="registration-file-list">
+                    <li>{paymentProof.name}</li>
+                  </ul>
+                  <button type="button" onClick={() => handleRemoveFile(setPaymentProof)}>Eliminar documento</button>
+                </>
+              ) : (
+                <>
+                  <p>No hay documentos precargados</p>
+                  <input type="file" id="paymentProof" name="paymentProof" accept="application/pdf" onChange={(e) => handleFileChange(e, setPaymentProof)} />
+                  <label htmlFor="paymentProof">Agregar documento</label>
+                </>
+              )}
+            </div>
+            {registrationType !== "reinscripcion" && (
+              <div className="registration-file-upload">
+                <p>Bitácora cero</p>
+                {bitacoraCero ? (
+                  <>
+                    <ul className="registration-file-list">
+                      <li>{bitacoraCero.name}</li>
+                    </ul>
+                    <button type="button" onClick={() => handleRemoveFile(setBitacoraCero)}>Eliminar documento</button>
+                  </>
+                ) : (
+                  <>
+                    <p>No hay documentos precargados</p>
+                    <input type="file" id="bitacoraCero" name="bitacoraCero" accept="application/pdf" onChange={(e) => handleFileChange(e, setBitacoraCero)} />
+                    <label htmlFor="bitacoraCero">Agregar documento</label>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+          <button type="submit" className="registration-submit-btn">Enviar</button>
+        </form>
+      </div>
+
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>¿Estás seguro de enviar la solicitud de registro?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleConfirm}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registro exitoso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Tu registro se ha realizado con éxito.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => navigate("/")}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }

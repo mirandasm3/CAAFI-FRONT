@@ -1,43 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
-import '../styles/dashboard.css';
-import { Button } from 'react-bootstrap';
-
+import "../styles/dashboard.css";
+import UserIcon from "../components/UserIcon";
 
 export default function Dashboard() {
-  const logoUrl = require('../img/background.png');
+    const [userType, setUserType] = useState("");
+    const navigate = useNavigate();
 
-  return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <img src={logoUrl} alt="CAAFI" className="dashboard-logo" />
-        <div className="dashboard-user-icon">
-          <i className="bi bi-person"></i>
+    useEffect(() => {
+        const userTypeFromCookies = Cookies.get('user-type');
+        const userFromCookies = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+        if (!userTypeFromCookies) {
+            navigate("/caafi");
+        } else {
+            setUserType(userTypeFromCookies);
+        }
+    }, [navigate]);
+
+    const renderButtons = () => {
+        switch(userType) {
+            case "administrador":
+                return (
+                    <div className="buttons">
+                        <button className="button registro" onClick={() => navigate("/registro-personal")}>Registro de personal CAAFI</button>
+                        <button className="button gestion" onClick={() => navigate("/gestion-personal")}>Gestión personal CAAFI</button>
+                        <button className="button reportes" onClick={() => navigate("/reportes")}>Reportes</button>
+                        <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
+                    </div>
+                );
+            case "tecnicoAcademico":
+                return (
+                    <div className="buttons">
+                        <button className="button registro" onClick={() => navigate("/inscripciones")}>Inscripciones</button>
+                        <button className="button gestion" onClick={() => navigate("/gestion-alumnos")}>Gestión alumnos CAAFI</button>
+                        <button className="button reportes" onClick={() => navigate("/reportes")}>Reportes</button>
+                        <button className="button bitacoras" onClick={() => navigate("/bitacoras")}>Bitácoras</button>
+                        <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
+                    </div>
+                );
+            case "alumno":
+            case "delex":
+                return (
+                    <div className="buttons">
+                        <button className="button bitacoras" onClick={() => navigate("/bitacoras")}>Bitácoras</button>
+                        <button className="button gestion" onClick={() => navigate("/visitas")}>Visitas</button>
+                        <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    const userFromCookies = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+
+    return (
+        <div className="dashboard">
+            <div className="headerMenu">
+                <div className="logo">
+                    <img src={require('../img/caafi-w.png')} alt="Logo CAAFI" />
+                </div>
+                <UserIcon />
+            </div>
+            <div className="body">
+                <h1>¡Bienvenido, {userFromCookies ? userFromCookies.name : 'Usuario'}!</h1>
+                <div>
+                    {renderButtons()}
+                </div>
+                <div className="footer-text">
+                    <a href="https://www.uv.mx/caidiomas/">https://www.uv.mx/caidiomas/</a>
+                    © 2024 Universidad Veracruzana. Todos los derechos reservados
+                </div>
+            </div>
         </div>
-      </header>
-      <div className="dashboard-content">
-        <div className="dashboard-left">
-          <p>¡Bienvenido, Juan Pérez González!</p>
-          <div className="dashboard-stats">
-            <h2>122</h2>
-            <p>VISITAS</p>
-          </div>
-          <div className="dashboard-stats">
-            <h2>2</h2>
-            <p>SALAS USADAS</p>
-          </div>
-        </div>
-        <div className="dashboard-right">
-          <div className="dashboard-btn btn-gray">Registro de personal CAAFI</div>
-          <div className="dashboard-btn btn-darkgray">Gestión personal CAAFI</div>
-          <div className="dashboard-btn btn-blue">Reportes</div>
-          <div className="dashboard-btn btn-lightblue">Historial de bitácoras</div>
-          <div className="dashboard-btn btn-green">Historial de reportes</div>
-        </div>
-      </div>
-      <footer className="dashboard-footer">
-        <p>© 2024 Universidad Veracruzana. Todos los derechos reservados</p>
-      </footer>
-    </div>
-  );
+    );
 }
