@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/singup-personal.css";
 import UserIcon from "../components/UserIcon.jsx";
+import config from "../Config.js";
 
 export default function SingUpPersonal() {
     const [usuario, setUsuario] = useState('');
     const [nombre, setNombre] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [contrasena, setContrasena] = useState('');
-    const [tipoUsuario, setTipoUsuario] = useState('');
+    const [tipoUsuario, setTipoUsuario] = useState(1);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const navigate = useNavigate();
     const logoURL = require('../img/caafi-w.png');
@@ -31,15 +33,31 @@ export default function SingUpPersonal() {
         return null; 
       };
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log({
-        usuario,
-        nombre,
-        apellidos,
-        contrasena,
-        tipoUsuario
-      });
+    const handleSubmit = async (event) => {
+      try {
+        const response = await fetch(`${config.apiUrl}/personal`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              matricula: usuario,
+              nombre,
+              apellidos,
+              password: contrasena,
+              puesto: tipoUsuario
+            })
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        else {
+          setShowSuccessModal(true);
+        }
+      } 
+      catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+      }
     };
 
     return (
@@ -62,7 +80,7 @@ export default function SingUpPersonal() {
 
                 <h1 className="singup-title">Registro de Personal CAAFI</h1>
                 <div className="signup-form">
-                    <form onSubmit={handleSubmit}>
+                    <div className="form">
                       <div className="form-group">
                         <label htmlFor="usuario">Usuario:</label>
                         <input
@@ -123,20 +141,29 @@ export default function SingUpPersonal() {
                         <select
                           id="tipoUsuario"
                           value={tipoUsuario}
-                          onChange={(e) => setTipoUsuario(e.target.value)}
+                          onChange={(e) => setTipoUsuario(parseInt(e.target.value))}
                           required
                         >
-                          <option value="">Seleccionar tipo</option>
-                          <option value="estudiante">Estudiante</option>
-                          <option value="profesor">Profesor</option>
-                          <option value="administrativo">Administrativo</option>
+                          <option value="1">Administrador</option>
+                          <option value="2">Técnico</option>
                         </select>
                       </div>
-                      <button type="submit" className="submit-button">
+                      <button onClick={handleSubmit} className="submit-button">
                         Registrar
                       </button>
-                  </form>
+                  </div>
             </div> 
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Registro exitoso</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Tu registro se ha realizado con éxito.</Modal.Body>
+              <Modal.Footer>
+                <Button variant="primary" onClick={() => navigate("/inicio")}>
+                  Cerrar
+                </Button>
+              </Modal.Footer>
+            </Modal>
       </div>
     );
 }

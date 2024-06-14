@@ -68,7 +68,7 @@ justify-content: center;
 align-items: flex-start;
 }   
 
-.signup-form form {
+.signup-form div.form {
 background-color: white;
 display: grid;
 grid-template-columns: 1fr 1fr;

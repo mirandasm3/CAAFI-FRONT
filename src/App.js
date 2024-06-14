@@ -11,7 +11,6 @@ import TestLogin from './pages/TestLogin';
 import PersonalManagment from './pages/PersonalManagment';
 import AcceptInscription from './pages/AcceptInscription';
 import StudentManagement from './pages/StudentManagement';
-import Bitacora from './pages/Bitacora';
 import SelectStudentManual from './pages/SelectStudentManual';
 import RegistrationRequestManual from './pages/RegistrationRequestManual';
 import Binnacle from './pages/Binnacle';

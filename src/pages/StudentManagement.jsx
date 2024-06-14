@@ -33,18 +33,19 @@ export default function StudentManagement() {
         if (!selectedStudent) return;
 
         try {
-            const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/alumno', {
+            console.log(selectedStudent);
+            const response = await fetch(`${config.apiUrl}/alumno`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ matricula: selectedStudent })
+                body: JSON.stringify({ idPersona: selectedStudent.idPersona })
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             setShowSuccessModal(true);
-            setStudents(students.filter(student => student.matricula !== selectedStudent));
+            setStudents(students.filter(student => student.idPersona !== selectedStudent.idPersona));
             setSelectedStudent(null);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -100,7 +101,7 @@ export default function StudentManagement() {
                             <td>{student.tipo}</td>
                             <td className='d-flex'>
                                 <button className="view-btn" onClick={() => handleViewStudent(student)}>Ver</button>
-                                <button className="delete-btn" onClick={() => { setSelectedStudent(student.matricula); setShowConfirmModal(true); }}>Eliminar</button>
+                                <button className="delete-btn" onClick={() => { setSelectedStudent(student); setShowConfirmModal(true); }}>Eliminar</button>
                             </td>
                         </tr>
                     ))}
