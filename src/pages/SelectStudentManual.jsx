@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../styles/select-student.css";
 
-export default function SelectStudent() {
+export default function SelectStudentManual() {
   const [studentType, setStudentType] = useState("Alumno");
   const [registrationType, setRegistrationType] = useState("primeraInscripcion");
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function SelectStudent() {
   };
 
   const handleNextButtonClick = () => {
-    navigate("/solicitud-registro", { state: { studentType, registrationType } });
+    navigate("/solicitud-registro-manual", { state: { studentType, registrationType } });
   };
 
   return (
@@ -28,19 +28,11 @@ export default function SelectStudent() {
       <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
         <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
       </div>
-      <div className="row h-100">
-        <div className="col-md-6 img-bg">
-          <img src={bg} alt="Fondo" className="img-fluid" />
-        </div>
+      <div className="w-100 d-flex" style={{ justifyContent: "center" }}>
         <div className="col-md-6 content">
-          <div className="header">
-            <div className="logoSS">
-              <img src={logoUrl} alt="Logo CAAFI" />
-            </div>
-          </div>
-          <div className="white-box">
+          <div className="white-box" style={{ marginTop: 0, height: "auto", maxWidth: "80%", borderRadius: "16px" }}>
             <div style={{ display:'flex', alignItems: 'left' }}>
-              <Button variant="link" onClick={() => navigate("/caafi")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+              <Button variant="link" onClick={() => navigate(-1)} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
                 <i className="bi bi-arrow-left"></i>
               </Button>
               <h2 style={{ marginBottom: '2px', marginLeft: '-38%' }}>Registro de inscripción</h2>

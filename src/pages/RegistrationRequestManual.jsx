@@ -6,7 +6,7 @@ import config from "../Config";
 import FormData from 'form-data';
 import "../styles/registration-request.css";
 
-export default function RegistrationRequest() {
+export default function RegistrationRequestManual() {
   const location = useLocation();
   const { studentType, registrationType } = location.state || {};
   const navigate = useNavigate();
@@ -145,7 +145,7 @@ export default function RegistrationRequest() {
       tipo: studentType,
       inscripcion: registrationType,
       idiomas: idiomas,
-      status: "pendiente",
+      status: "aprobado"
     };
 
     if (studentType === "Alumno") {
@@ -243,7 +243,7 @@ export default function RegistrationRequest() {
         </div>
       </div>
       <div className="registration-title" style={{ display: 'flex', alignItems: 'center' }}>
-        <Button variant="link" onClick={() => navigate("/registro")} style={{ color: 'black', fontSize: '30px', marginLeft: '-10px' }}>
+        <Button variant="link" onClick={() => navigate(-1)} style={{ color: 'black', fontSize: '30px', marginLeft: '-10px' }}>
           <i className="bi bi-arrow-left"></i>
         </Button>
         <h2 style={{ marginLeft: '10px' }}>Registro de inscripción</h2>
@@ -363,7 +363,7 @@ export default function RegistrationRequest() {
         </Modal.Header>
         <Modal.Body>Tu registro se ha realizado con éxito.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => navigate("/")}>
+          <Button variant="primary" onClick={() => navigate("/inscripciones")}>
             Cerrar
           </Button>
         </Modal.Footer>

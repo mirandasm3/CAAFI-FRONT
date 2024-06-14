@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { Modal, Button } from 'react-bootstrap';
+import config from "../Config";
 import "../styles/login.css";
 
 export default function Login() {
@@ -43,10 +44,11 @@ export default function Login() {
     }
 
     const logIn = () => {
-        fetch(`https://8kzxktht-3000.usw3.devtunnels.ms/login`, {
+        fetch(`${config.apiUrl}/login`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': "*"
             },
             body: JSON.stringify({matricula, password})
         })
@@ -58,6 +60,8 @@ export default function Login() {
                     Cookies.set('auth', responseBody.token, { expires: expirationTime });
                     Cookies.set('auth-type', "account", { expires: expirationTime });
                     Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
+                    Cookies.set('user-name', responseBody.name, { expires: expirationTime });
+                    Cookies.set('user-surnames', responseBody.surnames, { expires: expirationTime });
                     navigate("/inicio");
                     break;
                 }

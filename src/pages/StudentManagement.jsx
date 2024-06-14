@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import "../styles/student-management.css";
 import UserIcon from '../components/UserIcon';
 import { Modal, Button } from 'react-bootstrap';
+import config from '../Config';
 
 export default function StudentManagement() {
     const [students, setStudents] = useState([]);
@@ -14,17 +15,18 @@ export default function StudentManagement() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('https://8kzxktht-3000.usw3.devtunnels.ms/alumnos')
+        fetch(`${config.apiUrl}/alumnos`)
             .then(response => response.json())
             .then(data => setStudents(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const filteredStudents = students.filter(student =>
-        student.status === 'aprobado' &&
+    const filteredStudents = students.filter(student => {
+        return student.status === 'aprobado' &&
         (student.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.apellidos.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.matricula.toLowerCase().includes(searchTerm.toLowerCase()))
+        student.matricula.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
     );
 
     const handleDeleteStudent = async () => {
@@ -49,18 +51,9 @@ export default function StudentManagement() {
         }
     };
 
-    const handleViewStudent = async (matricula) => {
-        try {
-            const response = await fetch(`https://8kzxktht-3000.usw3.devtunnels.ms/alumno?matricula=${matricula}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setSelectedStudent(data);
-            setShowStudentModal(true);
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
+    const handleViewStudent = async (student) => {
+        setSelectedStudent(student);
+        setShowStudentModal(true);
     };
 
     return (
@@ -100,14 +93,13 @@ export default function StudentManagement() {
                 </thead>
                 <tbody>
                     {filteredStudents.map(student => (
-                        <tr key={student.matricula}>
+                        <tr key={student.idPersona}>
                             <td>{student.matricula}</td>
                             <td>{student.nombre}</td>
                             <td>{student.apellidos}</td>
                             <td>{student.tipo}</td>
-                            <td>
-                                <button className="view-btn" onClick={() => handleViewStudent(student.matricula)}>Ver</button>
-                                <button className="edit-btn">Editar</button>
+                            <td className='d-flex'>
+                                <button className="view-btn" onClick={() => handleViewStudent(student)}>Ver</button>
                                 <button className="delete-btn" onClick={() => { setSelectedStudent(student.matricula); setShowConfirmModal(true); }}>Eliminar</button>
                             </td>
                         </tr>
@@ -153,10 +145,10 @@ export default function StudentManagement() {
                 <Modal.Body>
                     {selectedStudent && (
                         <div>
-                            <p><strong>Matrícula:</strong> {selectedStudent.matricula}</p>
-                            <p><strong>Nombre:</strong> {selectedStudent.nombre}</p>
-                            <p><strong>Apellidos:</strong> {selectedStudent.apellidos}</p>
-
+                            <p style={{ textAlign: "left" }}><strong>Matrícula:</strong> {selectedStudent.matricula}</p>
+                            <p style={{ textAlign: "left" }}><strong>Nombre:</strong> {selectedStudent.nombre}</p>
+                            <p style={{ textAlign: "left" }}><strong>Apellidos:</strong> {selectedStudent.apellidos}</p>
+                            <p style={{ textAlign: "left" }}><strong>Tipo:</strong> {selectedStudent.tipo}</p>
                         </div>
                     )}
                 </Modal.Body>

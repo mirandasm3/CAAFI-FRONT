@@ -6,15 +6,17 @@ import UserIcon from "../components/UserIcon";
 
 export default function Dashboard() {
     const [userType, setUserType] = useState("");
+    const [userName, setUserName] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
         const userTypeFromCookies = Cookies.get('user-type');
-        const userFromCookies = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+        const userNameFromCookies = Cookies.get('user-name');
         if (!userTypeFromCookies) {
             navigate("/caafi");
         } else {
             setUserType(userTypeFromCookies);
+            setUserName(userNameFromCookies);
         }
     }, [navigate]);
 
@@ -64,7 +66,7 @@ export default function Dashboard() {
                 <UserIcon />
             </div>
             <div className="body">
-                <h1>¡Bienvenido, {userFromCookies ? userFromCookies.name : 'Usuario'}!</h1>
+                <h1>¡Bienvenido, {userName}!</h1>
                 <div>
                     {renderButtons()}
                 </div>

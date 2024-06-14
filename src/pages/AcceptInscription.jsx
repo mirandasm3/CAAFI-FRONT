@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/accept-inscription.css";
 import Cookies from 'js-cookie';
 import UserIcon from "../components/UserIcon";
+import config from '../Config';
 import { Modal, Button } from 'react-bootstrap';
 
 export default function AcceptInscription() {
@@ -13,11 +14,31 @@ export default function AcceptInscription() {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch('https://8kzxktht-3000.usw3.devtunnels.ms/inscripcion')
+    const getFileDownloadLink = (student, file) => {
+        const byteArray = new Uint8Array(file.data);
+        const blob = new Blob([byteArray], { type: 'application/octet-stream' });
+        return URL.createObjectURL(blob);
+    }
+
+    const getRequest = () => {
+        fetch(`${config.apiUrl}/inscripcion`)
             .then(response => response.json())
-            .then(data => setStudents(data))
+            .then(data => setStudents(data.map(student => ({
+                idPersona: student.idPersona,
+                matricula: student.matricula,
+                nombre: student.nombre,
+                apellidos: student.apellidos,
+                tipo: student.tipo,
+                inscripcion: student.inscripcion,
+                comprobante1: student.comprobante1,
+                comprobante2: student.comprobante2,
+                status: student.status
+            }))))
             .catch(error => console.error('Error fetching data:', error));
+    }
+
+    useEffect(() => {
+        getRequest();
     }, []);
 
     const filteredStudents = students.filter(student =>
@@ -27,23 +48,23 @@ export default function AcceptInscription() {
         student.matricula.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    const handleSelectStudent = (matricula) => {
-        if (selectedStudent === matricula) {
+    const handleSelectStudent = (personaId) => {
+        if (selectedStudent === personaId) {
             setSelectedStudent(null);
         } else {
-            setSelectedStudent(matricula);
+            setSelectedStudent(personaId);
         }
     };
 
     const handleApproveSelection = async () => {
         try {
-            const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/inscripcion/accept', {
+            const response = await fetch(`${config.apiUrl}/inscripcion/accept`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('auth')}`
                 },
-                body: JSON.stringify({ matricula: selectedStudent })
+                body: JSON.stringify({ idPersona: selectedStudent })
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -67,13 +88,13 @@ export default function AcceptInscription() {
             </div>
             <div className="header-bar">
                 <div className="back-button">
-                    <button className="back-btn" onClick={() => navigate(-1)}>
+                    <button className="back-btn" onClick={() => navigate('/inicio')}>
                         <i className="bi bi-arrow-left"></i>
                     </button>
                     <h2>Solicitudes de inscripción</h2>
                 </div>
                 <div className="actions">
-                    <button className="manual-button">Inscripción manual</button>
+                    <button className="manual-button" onClick={() => navigate('/registro-manual')}>Inscripción manual</button>
                     <button className="approve-button" onClick={() => setShowConfirmModal(true)} disabled={!selectedStudent}>Aprobar selección</button>
                 </div>
             </div>
@@ -91,19 +112,19 @@ export default function AcceptInscription() {
                 </thead>
                 <tbody>
                     {filteredStudents.map((student) => (
-                        <tr key={student.matricula}>
+                        <tr key={student.idPersona}>
                             <td>{student.nombre}</td>
                             <td>{student.apellidos}</td>
                             <td>{student.tipo}</td>
                             <td>{student.inscripcion}</td>
-                            <td>{student.comprobante1 || 'N/A'}</td>
-                            <td>{student.comprobante2 || 'N/A'}</td>
+                            <td><a href={getFileDownloadLink(student, student.comprobante1)} download={`${student.matricula}-comprobante.pdf`}>Descargar</a></td>
+                            <td>{student.comprobante2 != null ? <a href={getFileDownloadLink(student, student.comprobante2)} download={`${student.matricula}-bitacora.pdf`}>Descargar</a> : "N/A"}</td>
                             <td>
                                 <input
                                     type="radio"
                                     name="selectStudent"
-                                    checked={selectedStudent === student.matricula}
-                                    onChange={() => handleSelectStudent(student.matricula)}
+                                    checked={selectedStudent === student.idPersona}
+                                    onChange={() => handleSelectStudent(student.idPersona)}
                                 />
                             </td>
                         </tr>
@@ -136,12 +157,9 @@ export default function AcceptInscription() {
                     El registro de alumnos ha sido guardado.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => setShowSuccessModal(false)}>
+                    <Button variant="primary" onClick={() => { setShowSuccessModal(false); getRequest() }}>
                         Cerrar
                     </Button>
-                    <button className="back-btn" onClick={() => navigate("/inicio")}>
-                        <i className="bi bi-arrow-left"></i>
-                    </button>
                 </Modal.Footer>
             </Modal>
         </div>

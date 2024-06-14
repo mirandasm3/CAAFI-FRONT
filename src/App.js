@@ -11,6 +11,9 @@ import TestLogin from './pages/TestLogin';
 import PersonalManagment from './pages/PersonalManagment';
 import AcceptInscription from './pages/AcceptInscription';
 import StudentManagement from './pages/StudentManagement';
+import Bitacora from './pages/Bitacora';
+import SelectStudentManual from './pages/SelectStudentManual';
+import RegistrationRequestManual from './pages/RegistrationRequestManual';
 import Binnacle from './pages/Binnacle';
 
 
@@ -22,7 +25,9 @@ function App() {
               <Route path="/" element={<Navigate to="/caafi" />} />
               <Route path="/caafi" element={<Login/>} />
               <Route path="/registro" element={<SelectStudent/>} />
+              <Route path="/registro-manual" element={<SelectStudentManual/>} />
               <Route path="/solicitud-registro" element={<RegistrationRequest/>} />
+              <Route path="/solicitud-registro-manual" element={<RegistrationRequestManual/>} />
               <Route path="/inicio" element={<Dashboard/>} />
               <Route path="/registrar-personal-caafi" element={<SingUpPersonal/>} />
               <Route path="/reportes" element={<StatsReports/>} />
