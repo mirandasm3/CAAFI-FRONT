@@ -1,0 +1,119 @@
+.bita {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #90A1A0;
+    min-height: 100vh;
+    padding: 2px;
+    box-sizing: border-box;
+}
+.container-bitacora {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 2px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.bitacora-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6D6D6D;
+    padding: 60px;
+}
+
+.bitacora-logo img {
+    height: 90px;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 30px;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000;
+    margin-right: 10px;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.bitacora-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control, 
+.form-check-input, 
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-check-input {
+    width: auto;
+    margin-left: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #22416e;
+    color: white;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #182c4b;
+}
+
+.text-danger {
+    font-size: 14px;
+    color: #6b2c2a;
+}

@@ -11,7 +11,7 @@ import TestLogin from './pages/TestLogin';
 import PersonalManagment from './pages/PersonalManagment';
 import AcceptInscription from './pages/AcceptInscription';
 import StudentManagement from './pages/StudentManagement';
-import Bitacora from './pages/Bitacora';
+import Binnacle from './pages/Binnacle';
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
               <Route path="/gestion-personal" element={<PersonalManagment/>} />
               <Route path="/inscripciones" element={<AcceptInscription/>} />
               <Route path="/gestion-alumnos" element={<StudentManagement/>} />
-              <Route path="/bitacora" element={<Bitacora/>} />
+              <Route path="/bitacora" element={<Binnacle/>} />
               <Route path="/test-login" element={<TestLogin />} /> 
               <Route path="*" element={<h1>404</h1>} />
           </Routes>
