@@ -20,7 +20,7 @@ export default function Dashboard() {
 
     const renderButtons = () => {
         switch(userType) {
-            case "administrador":
+            case "Administrador":
                 return (
                     <div className="buttons">
                         <button className="button registro" onClick={() => navigate("/registrar-personal-caafi")}>Registro de personal CAAFI</button>
@@ -29,7 +29,7 @@ export default function Dashboard() {
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
                     </div>
                 );
-            case "tecnicoAcademico":
+            case "Técnico académico":
                 return (
                     <div className="buttons">
                         <button className="button registro" onClick={() => navigate("/inscripciones")}>Inscripciones</button>
