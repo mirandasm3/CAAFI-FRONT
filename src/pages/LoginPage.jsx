@@ -5,7 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 import "../styles/login.css";
 
 export default function Login() {
-    const [user, setUser] = useState("");
+    const [matricula, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [formUserError, setFormUError] = useState("");
     const [formPassError, setFormPError] = useState("");
@@ -24,12 +24,12 @@ export default function Login() {
         setFormPError("");
         setUserInputIsInvalid(false);
         setPasswordInputIsInvalid(false);
-        if(user === "") {
+        if(matricula === "") {
             setFormUError("Usuario requerido");
             setUserInputIsInvalid(true);
             return;
         }
-        if (!/^(s|S)\d{8}$|^[a-z]+$/.test(user)) {
+        if (!/^(s|S)\d{8}$|^[a-z]+$/.test(matricula)) {
             setFormUError("Usuario inválido");
             setUserInputIsInvalid(true);
             return;
@@ -48,7 +48,7 @@ export default function Login() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({user, password})
+            body: JSON.stringify({matricula, password})
         })
         .then(async r => {
             switch(r.status) {
@@ -56,9 +56,8 @@ export default function Login() {
                     let responseBody = await r.json();
                     const expirationTime = new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
                     Cookies.set('auth', responseBody.token, { expires: expirationTime });
-                    Cookies.set('user', JSON.stringify(responseBody.user), { expires: expirationTime });
                     Cookies.set('auth-type', "account", { expires: expirationTime });
-                    Cookies.set('user-type', responseBody.user.type, { expires: expirationTime });
+                    Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
                     navigate("/inicio");
                     break;
                 }
@@ -102,7 +101,7 @@ export default function Login() {
                                     className={!userInputIsInvalid ? "form-control" : "form-control is-invalid"} 
                                     id="input-user" 
                                     name="noautocomplete-user"
-                                    value={user} 
+                                    value={matricula} 
                                     onChange={ev => setUser(ev.target.value)} 
                                     placeholder="Matrícula o cuenta" 
                                     autoComplete="off"
