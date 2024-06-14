@@ -16,8 +16,8 @@ export default function SingUpPersonal() {
     const uvTitleURL = require('../img/Universidad-Veracruzana-Title.png');
 
     const validateUsuario = (value) => {
-        return /^[a-zA-Z0-9]+$/.test(value);
-      };
+      return /^[a-zA-Z]+$/.test(value);
+    };
     
     const validateApellidosNombre = (value) => {
         return /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value);
