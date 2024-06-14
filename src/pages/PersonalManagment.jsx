@@ -29,12 +29,11 @@ export default function PersonalManagment() {
     fetch('https://8kzxktht-3000.usw3.devtunnels.ms/personales')
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Hubo un error con la conexión');
         }
         return response.json();
       })
       .then(data => {
-        console.log('Datos recibidos de la API:', data);
         setPersonal(data);
         setFilteredPersonal(data);
       })
@@ -61,6 +60,29 @@ export default function PersonalManagment() {
   useEffect(() => {
     performSearch(); // Actualiza la búsqueda en tiempo real mientras se escribe
   }, [searchTerm]);
+
+  const deletePerson = async (matricula) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+      try {
+        const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/personal', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ matricula })
+        });
+        if (!response.ok) {
+          throw new Error('Error al conectarse');
+        }
+        alert('Eliminación exitosa');
+        setPersonal(personal.filter(person => person.matricula !== matricula));
+        setFilteredPersonal(filteredPersonal.filter(person => person.matricula !== matricula));
+      } catch (error) {
+        console.error('Hubo un error al eliminar el registro:', error);
+        alert('Hubo un error al eliminar el registro.');
+      }
+    }
+  };
 
   return (
     <Container>
@@ -111,9 +133,9 @@ export default function PersonalManagment() {
                   <td>{person.apellidos}</td>
                   <td>{puesto(person.idPuesto)}</td>
                   <td className="button-group">
-                    <Button variant="primary" onClick={() => viewPerson(person.usuario)}>Ver</Button>
-                    <Button variant="secondary" onClick={() => editPerson(person.usuario)}>Editar</Button>
-                    <Button variant="danger" onClick={() => deletePerson(person.usuario)}>Eliminar</Button>
+                    <Button variant="primary" onClick={() => viewPerson(person.matricula)}>Ver</Button>
+                    <Button variant="secondary" onClick={() => editPerson(person.matricula)}>Editar</Button>
+                    <Button variant="danger" onClick={() => deletePerson(person.matricula)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -126,16 +148,9 @@ export default function PersonalManagment() {
 }
 
 const viewPerson = (id) => {
-  // que se hace al dar clic
   console.log(`View person with ID: ${id}`);
 };
 
 const editPerson = (id) => {
-  // editar
   console.log(`Edit person with ID: ${id}`);
-};
-
-const deletePerson = (id) => {
-  // eliminar
-  console.log(`Delete person with ID: ${id}`);
 };
