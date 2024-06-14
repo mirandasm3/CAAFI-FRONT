@@ -20,21 +20,40 @@ export default function RegistrationRequest() {
     { id: 2, name: "Estadística e Informática" },
     { id: 3, name: "Economía" },
     { id: 4, name: "Sociología" },
-    { id: 5, name: "Antropología" },
-    { id: 6, name: "Filosofía" },
-    { id: 7, name: "Historia" },
-    { id: 8, name: "Letras españolas" },
   ]);
   const [programs] = useState({
-    1: ['Opción 1', 'Opción 2', 'Opción 3'],
-    2: ['Opción 1', 'Opción 2', 'Opción 3'],
-    3: ['Opción 1', 'Opción 2', 'Opción 3'],
-    4: ['Opción 1', 'Opción 2', 'Opción 3'],
-    5: ['Opción 1', 'Opción 2', 'Opción 3'],
-    6: ['Opción 1', 'Opción 2', 'Opción 3'],
-    7: ['Opción 1', 'Opción 2', 'Opción 3'],
-    8: ['Opción 1', 'Opción 2', 'Opción 3']
+    1: [
+      'Licenciatura en lengua inglesa',
+      'Licenciatura en lengua francesa',
+      'Licenciatura en enseñanza del inglés (virtual)',
+      'Maestría en enseñanza del inglés como lengua extranjera',
+      'Maestría en didáctica del francés',
+      'Maestría en Educación para la interculturalidad y sustentabilidad',
+      'Doctorado en estudios del lenguaje y lingüística aplicada',
+      'Reconocimientos como programas de calidad'
+    ],
+    2: [
+      'Licenciatura en ingeniería en ciencia de datos',
+      'Licenciatura en ingeniería en sistemas y tecnologías de la información',
+      'Licenciatura en ingeniería de software plan 2023',
+      'Licenciatura en ingeniería de ciberseguridad e infraestructura de cómputo',
+      'Licenciatura en estadística',
+      'Licenciatura en redes y servicios de computo',
+      'Licenciatura en ingeniería de software',
+      'Licenciatura en Tecnologías computacionales',
+      'Licenciatura en ciencias y técnicas estadísticas',
+      'Licenciatura en informática'
+    ],
+    3: [
+      'Economía plan 2017',
+      'Economía plan 2024'
+    ],
+    4: [
+      'Sociología',
+      'Sociología plan 2013'
+    ]
   });
+  
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [selectedPrograms, setSelectedPrograms] = useState([]);
   const [semesters, setSemesters] = useState([]);
@@ -88,6 +107,14 @@ export default function RegistrationRequest() {
 
     if (idiomas.length === 0) {
       errors["idiomas"] = "Debe seleccionar al menos un idioma";
+    }
+
+    if (!paymentProof) {
+      errors["paymentProof"] = "El comprobante de pago es obligatorio";
+    }
+  
+    if (registrationType !== "reinscripcion" && !bitacoraCero) {
+      errors["bitacoraCero"] = "La bitácora cero es obligatoria";
     }
 
     setFormErrors(errors);
@@ -267,43 +294,45 @@ export default function RegistrationRequest() {
             {formErrors.idiomas && <div className="error-message">{formErrors.idiomas}</div>}
           </div>
           <div className="registration-file-upload-container">
-            <div className="registration-file-upload">
-              <p>Comprobante de pago</p>
-              {paymentProof ? (
-                <>
-                  <ul className="registration-file-list">
-                    <li>{paymentProof.name}</li>
-                  </ul>
-                  <button type="button" onClick={() => handleRemoveFile(setPaymentProof)}>Eliminar documento</button>
-                </>
-              ) : (
-                <>
-                  <p>No hay documentos precargados</p>
-                  <input type="file" id="paymentProof" name="paymentProof" accept="application/pdf" onChange={(e) => handleFileChange(e, setPaymentProof)} />
-                  <label htmlFor="paymentProof">Agregar documento</label>
-                </>
-              )}
-            </div>
-            {registrationType !== "reinscripcion" && (
               <div className="registration-file-upload">
-                <p>Bitácora cero</p>
-                {bitacoraCero ? (
+                <p>Comprobante de pago</p>
+                {paymentProof ? (
                   <>
                     <ul className="registration-file-list">
-                      <li>{bitacoraCero.name}</li>
+                      <li>{paymentProof.name}</li>
                     </ul>
-                    <button type="button" onClick={() => handleRemoveFile(setBitacoraCero)}>Eliminar documento</button>
+                    <button type="button" onClick={() => handleRemoveFile(setPaymentProof)}>Eliminar documento</button>
                   </>
                 ) : (
                   <>
                     <p>No hay documentos precargados</p>
-                    <input type="file" id="bitacoraCero" name="bitacoraCero" accept="application/pdf" onChange={(e) => handleFileChange(e, setBitacoraCero)} />
-                    <label htmlFor="bitacoraCero">Agregar documento</label>
+                    <input type="file" id="paymentProof" name="paymentProof" accept="application/pdf" onChange={(e) => handleFileChange(e, setPaymentProof)} />
+                    <label htmlFor="paymentProof">Agregar documento</label>
+                    {formErrors.paymentProof && <div className="error-message">{formErrors.paymentProof}</div>}
                   </>
                 )}
               </div>
-            )}
-          </div>
+              {registrationType !== "reinscripcion" && (
+                <div className="registration-file-upload">
+                  <p>Bitácora cero</p>
+                  {bitacoraCero ? (
+                    <>
+                      <ul className="registration-file-list">
+                        <li>{bitacoraCero.name}</li>
+                      </ul>
+                      <button type="button" onClick={() => handleRemoveFile(setBitacoraCero)}>Eliminar documento</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>No hay documentos precargados</p>
+                      <input type="file" id="bitacoraCero" name="bitacoraCero" accept="application/pdf" onChange={(e) => handleFileChange(e, setBitacoraCero)} />
+                      <label htmlFor="bitacoraCero">Agregar documento</label>
+                      {formErrors.bitacoraCero && <div className="error-message">{formErrors.bitacoraCero}</div>}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           <button type="submit" className="registration-submit-btn">Enviar</button>
         </form>
       </div>

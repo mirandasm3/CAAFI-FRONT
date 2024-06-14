@@ -28,7 +28,7 @@ export default function SingUpPersonal() {
         if (registroExitoso) {
             alert( '¡Registro exitoso! El registro del personal ha sido guardado correctamente.');
         }
-        return null; // Retorna null si no se cumple la condición de registro exitoso
+        return null; 
       };
 
     const handleSubmit = (event) => {

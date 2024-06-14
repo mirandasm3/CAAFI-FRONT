@@ -5,6 +5,7 @@ export default function VisitsReports() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [visitsCount, setVisitsCount] = useState(0);
+    const [error, setError] = useState('');
 
     const fetchReportData = async (startDate, endDate) => {
         try {
@@ -14,10 +15,8 @@ export default function VisitsReports() {
             }
             const data = await response.json();
             setVisitsCount(data.visitsCount);
-            return data.visitsCount;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
-            return 0;
         }
     };
 
@@ -64,34 +63,47 @@ export default function VisitsReports() {
         link.click();
     };
 
+    const handleConsultClick = () => {
+        if (!startDate || !endDate) {
+            setError('Por favor, selecciona ambas fechas.');
+            return;
+        }
+        setError('');
+        fetchReportData(startDate, endDate);
+    };
+
     return (
         <div>
-            <div>
-                <label>Fecha Inicio:</label>
-                <input 
-                    type="date" 
-                    value={startDate} 
-                    onChange={(e) => setStartDate(e.target.value)} 
-                />
+            <div className="report-container">
+                <div className="inline-container">
+                    <label>Fecha Inicio:</label>
+                    <input 
+                        type="date" 
+                        value={startDate} 
+                        onChange={(e) => setStartDate(e.target.value)} 
+                    />
+                    <label>Fecha Fin:</label>
+                    <input 
+                        type="date" 
+                        value={endDate} 
+                        onChange={(e) => setEndDate(e.target.value)} 
+                    />
+                    <button onClick={handleConsultClick} className="consult-button">Consultar</button>
+                </div>
+                {error && <p className="error-message">{error}</p>}
+                <div>
+                    <label>Conteo de Visitas:</label>
+                    <input 
+                        type="number" 
+                        value={visitsCount} 
+                        readOnly 
+                    />
+                </div>
+                <div className="footer">
+                    <button onClick={() => window.history.back()} className="cancel-button">Cancelar</button>
+                    <button onClick={generatePDF} className="download-button">Descargar reporte</button>
+                </div>
             </div>
-            <div>
-                <label>Fecha Fin:</label>
-                <input 
-                    type="date" 
-                    value={endDate} 
-                    onChange={(e) => setEndDate(e.target.value)} 
-                />
-            </div>
-            <div>
-                <label>Conteo de Visitas:</label>
-                <input 
-                    type="number" 
-                    value={visitsCount} 
-                    onChange={(e) => setVisitsCount(parseInt(e.target.value, 10))} 
-                    readOnly
-                />
-            </div>
-            <button onClick={generatePDF}>Descargar reporte</button>
         </div>
     );
 }
