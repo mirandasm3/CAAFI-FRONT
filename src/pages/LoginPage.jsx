@@ -58,7 +58,7 @@ export default function Login() {
                     Cookies.set('auth', responseBody.token, { expires: expirationTime });
                     Cookies.set('user', JSON.stringify(responseBody.user), { expires: expirationTime });
                     Cookies.set('auth-type', "account", { expires: expirationTime });
-                    Cookies.set('user-type', responseBody.user.type, { expires: expirationTime });
+                    Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
                     navigate("/inicio");
                     break;
                 }
