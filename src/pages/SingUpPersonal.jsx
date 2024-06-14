@@ -11,7 +11,7 @@ export default function SingUpPersonal() {
     const [contrasena, setContrasena] = useState('');
     const [tipoUsuario, setTipoUsuario] = useState('');
 
- const navigate = useNavigate();
+    const navigate = useNavigate();
     const logoURL = require('../img/caafi-w.png');
     const uvTitleURL = require('../img/Universidad-Veracruzana-Title.png');
 
@@ -55,7 +55,7 @@ export default function SingUpPersonal() {
             </div>
                 
             <div style={{ display:'flex', alignItems: 'left' }}>
-              <Button variant="link" onClick={() => navigate("/caafi")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+              <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
                 <i className="bi bi-arrow-left"></i>
               </Button>
             </div>

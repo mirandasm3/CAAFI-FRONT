@@ -8,6 +8,7 @@ import BinnacleHistory from './pages/BinnacleHistory';
 import StatsReports from './pages/StatsReports';
 import RegistrationRequest from './pages/RegistrationRequest';
 import TestLogin from './pages/TestLogin';
+import PersonalManagment from './pages/PersonalManagment';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/registrar-personal-caafi" element={<SingUpPersonal/>} />
               <Route path="/reportes" element={<StatsReports/>} />
               <Route path="/historial-bitacoras" element={<BinnacleHistory/>} />
+              <Route path="/gestion-personal" element={<PersonalManagment/>} />
               <Route path="/test-login" element={<TestLogin />} /> 
               <Route path="*" element={<h1>404</h1>} />
           </Routes>
