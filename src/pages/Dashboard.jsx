@@ -29,7 +29,7 @@ export default function Dashboard() {
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
                     </div>
                 );
-            case "Técnico académico":
+            case "Técnico":
                 return (
                     <div className="buttons">
                         <button className="button registro" onClick={() => navigate("/inscripciones")}>Inscripciones</button>
