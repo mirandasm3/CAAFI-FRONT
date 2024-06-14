@@ -28,7 +28,7 @@ export default function SingUpPersonal() {
         if (registroExitoso) {
             alert( '¡Registro exitoso! El registro del personal ha sido guardado correctamente.');
         }
-        return null; // Retorna null si no se cumple la condición de registro exitoso
+        return null; 
       };
 
     const handleSubmit = (event) => {
@@ -55,7 +55,7 @@ export default function SingUpPersonal() {
             </div>
                 
             <div style={{ display:'flex', alignItems: 'left' }}>
-              <Button variant="link" onClick={() => navigate("/caafi")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+              <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
                 <i className="bi bi-arrow-left"></i>
               </Button>
             </div>

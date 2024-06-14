@@ -23,7 +23,7 @@ export default function Dashboard() {
             case "administrador":
                 return (
                     <div className="buttons">
-                        <button className="button registro" onClick={() => navigate("/registro-personal")}>Registro de personal CAAFI</button>
+                        <button className="button registro" onClick={() => navigate("/registrar-personal-caafi")}>Registro de personal CAAFI</button>
                         <button className="button gestion" onClick={() => navigate("/gestion-personal")}>Gestión personal CAAFI</button>
                         <button className="button reportes" onClick={() => navigate("/reportes")}>Reportes</button>
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
@@ -69,9 +69,10 @@ export default function Dashboard() {
                     {renderButtons()}
                 </div>
                 <div className="footer-text">
-                    <a href="https://www.uv.mx/caidiomas/">https://www.uv.mx/caidiomas/</a>
                     © 2024 Universidad Veracruzana. Todos los derechos reservados
                 </div>
+                <a className="url-caafi" href="https://www.uv.mx/caidiomas/" target="_blank" rel="noopener noreferrer">https://www.uv.mx/caidiomas/</a>
+                
             </div>
         </div>
     );

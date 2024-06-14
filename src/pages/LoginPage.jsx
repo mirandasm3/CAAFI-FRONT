@@ -43,7 +43,7 @@ export default function Login() {
     }
 
     const logIn = () => {
-        fetch(`${"http://localhost:9000"}/auth/login`, {
+        fetch(`https://8kzxktht-3000.usw3.devtunnels.ms/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -76,6 +76,10 @@ export default function Login() {
                 }
             }
         })
+        .catch(error => {
+            console.error("Error en la solicitud:", error);
+            setFormPError("No se pudo conectar con el servidor.");
+        });
     }
 
     return (

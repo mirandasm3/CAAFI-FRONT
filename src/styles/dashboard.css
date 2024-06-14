@@ -131,3 +131,9 @@
 .user-menu-item:hover {
   background-color: #f0f0f0;
 }
+
+.url-caafi {
+  position: fixed;
+  bottom: 2px;
+  align-self: center;
+}
