@@ -19,7 +19,7 @@ export default function EnrollmentReports() {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data); // Para verificar los datos recibidos
+            console.log(data);
             setPeriods(data);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -28,7 +28,7 @@ export default function EnrollmentReports() {
 
     const fetchReportData = async (period) => {
         try {
-            const response = await fetch(`https://8kzxktht-3000.usw3.devtunnels.ms/reports/enrollments?period=${period}&type=Inscripciones`);
+            const response = await fetch(`https://8kzxktht-3000.usw3.devtunnels.ms/reporte`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

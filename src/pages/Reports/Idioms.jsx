@@ -13,12 +13,13 @@ export default function IdiomsReports() {
 
     const fetchPeriods = async () => {
         try {
-            const response = await fetch('http://your-api-url/periods');
+            const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/utils/periodo');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            setPeriods(data.periods);
+            console.log(data);
+            setPeriods(data);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
@@ -90,8 +91,8 @@ export default function IdiomsReports() {
                     <select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}>
                         <option value="">Selecciona un periodo</option>
                         {periods.map((period) => (
-                            <option key={period.id} value={period.id}>
-                                {period.name}
+                            <option key={period.identificador} value={period.identificador}>
+                                {period.identificador}
                             </option>
                         ))}
                     </select>
