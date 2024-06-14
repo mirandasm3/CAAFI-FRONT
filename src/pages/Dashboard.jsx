@@ -43,7 +43,7 @@ export default function Dashboard() {
             case "delex":
                 return (
                     <div className="buttons">
-                        <button className="button bitacoras" onClick={() => navigate("/bitacoras")}>Bitácoras</button>
+                        <button className="button bitacoras" onClick={() => navigate("/bitacora")}>Bitácoras</button>
                         <button className="button gestion" onClick={() => navigate("/visitas")}>Visitas</button>
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
                     </div>
