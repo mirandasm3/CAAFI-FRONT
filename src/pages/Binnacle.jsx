@@ -61,8 +61,7 @@ export default function Binnacle() {
         return Object.keys(errors).length === 0;
     };
 
-     const handleSubmit = async (e) => {
-        e.preventDefault();
+     const handleSubmit = async () => {
         if (!validateForm()) return;
         const now = new Date();
         const formattedNow2 = now.toISOString();
