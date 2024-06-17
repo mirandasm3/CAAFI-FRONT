@@ -5,17 +5,20 @@
     background-color: #f8f9fa;
   }
   
-  .bitacoras-header {
+  .headerBitacoras {
+    background-color: #6D6D6D;
+    background-size: cover;
+    background-position: center;
+    padding: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: #343a40;
-    color: #fff;
   }
   
-  .bitacoras-logo {
-    height: 60px;
+  .headerBitacoras .logo img {
+    width: 100px;
+    height: auto;
+    align-items: center;
   }
   
   .bitacoras-user-info {

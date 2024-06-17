@@ -41,7 +41,7 @@ export default function Dashboard() {
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>
                     </div>
                 );
-            case "alumno":
+            case "Alumno":
             case "delex":
                 return (
                     <div className="buttons">

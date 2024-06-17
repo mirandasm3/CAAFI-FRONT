@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import '../styles/binnacle.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserIcon from '../components/UserIcon';
+import Cookies from 'js-cookie';
+import config from "../Config";
 
 export default function Binnacle() {
     const [formData, setFormData] = useState({
@@ -16,11 +18,26 @@ export default function Binnacle() {
         evaluacion: 50,
         duda: '',
         asesoria: false,
-        observacion: ''
+        observacion: '',
+        horaInicio: '',
+        horaFin: ''
     });
     const [formErrors, setFormErrors] = useState({});
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userNameFromCookies = Cookies.get('user-name');
+        const userSurnamesFromCookies = Cookies.get('user-surnames');
+        const now = new Date();
+        const formattedNow = now.toISOString();
+        setFormData(prevState => ({
+            ...prevState,
+            horaInicio: formattedNow,
+            nombre: userNameFromCookies.toString()+" "+userSurnamesFromCookies.toString()
+        }));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -32,8 +49,8 @@ export default function Binnacle() {
 
     const validateForm = () => {
         const errors = {};
-        if (!formData.nombre) errors.nombre = 'Nombre es requerido';
-        if (!formData.grupoFacultad) errors.grupoFacultad = 'Grupo/Facultad es requerido';
+        if (!formData.sesion) errors.nombre = 'Nombre es requerido';
+        if (!formData.habilidadArea) errors.grupoFacultad = 'Grupo/Facultad es requerida';
         if (!formData.sesion) errors.sesion = 'Sesión es requerida';
         if (!formData.habilidadArea) errors.habilidadArea = 'Habilidad/Área es requerida';
         if (!formData.material) errors.material = 'Material es requerido';
@@ -44,11 +61,17 @@ export default function Binnacle() {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
+        const now = new Date();
+        const formattedNow2 = now.toISOString();
+        setFormData(prevState => ({
+            ...prevState,
+            horaFin: formattedNow2
+        }));
         try {
-            const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/bitacora', {
+            const response = await fetch(`${config.apiUrl}/bitacora`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +90,9 @@ export default function Binnacle() {
                     evaluacion: 50,
                     duda: '',
                     asesoria: false,
-                    observacion: ''
+                    observacion: '',
+                    horaInicio: '',
+                    horaFin: ''
                 });
             } else {
                 alert('Error al registrar');
@@ -112,6 +137,7 @@ export default function Binnacle() {
                                 value={formData.nombre}
                                 onChange={handleChange}
                                 isInvalid={!!formErrors.nombre}
+                                readOnly
                             />
                             <Form.Control.Feedback type="invalid">{formErrors.nombre}</Form.Control.Feedback>
                         </Form.Group>
@@ -242,16 +268,35 @@ export default function Binnacle() {
                         </Form.Group>
                     </Col>
                 </Row>
-                <Button type="submit" style= {{width:'300px'}} className="btn btn-primary submit-btn">Enviar bitácora</Button>
+                <Button type="button" style= {{width:'300px'}} className="btn btn-primary submit-btn" onClick={() => setShowConfirmModal(true)}>Enviar bitácora</Button>
             </Form>
 
-            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+
+        <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>Confirmar envío</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                ¿Estás seguro de que deseas enviar la bitácora?
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+                    Cancelar
+                </Button>
+                <Button variant="primary" onClick={() => { handleSubmit(); }}>
+                    Enviar
+                </Button>
+            </Modal.Footer>
+        </Modal>
+
+
+        <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Registro exitoso</Modal.Title>
         </Modal.Header>
         <Modal.Body>Tu registro se ha realizado con éxito.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => navigate("/")}>
+          <Button variant="primary" onClick={() => navigate("/inicio")}>
             Cerrar
           </Button>
         </Modal.Footer>
