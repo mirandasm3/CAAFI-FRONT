@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/PersonalManagment.css";
+import "../styles/personal-management.css";
 import UserIcon from "../components/UserIcon.jsx";
 import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
+import config from "../Config.js";
 
 export default function PersonalManagment() {
   const [personal, setPersonal] = useState([]);
@@ -26,7 +27,7 @@ export default function PersonalManagment() {
   };
 
   useEffect(() => {
-    fetch('https://8kzxktht-3000.usw3.devtunnels.ms/personales')
+    fetch((`${config.apiUrl}/personales`))
       .then(response => {
         if (!response.ok) {
           throw new Error('Hubo un error con la conexión');
@@ -46,7 +47,6 @@ export default function PersonalManagment() {
     setSearchTerm(event.target.value);
   };
 
-  // Función para realizar la búsqueda
   const performSearch = () => {
     const filtered = personal.filter(person =>
       person.matricula.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,13 +58,13 @@ export default function PersonalManagment() {
   };
 
   useEffect(() => {
-    performSearch(); // Actualiza la búsqueda en tiempo real mientras se escribe
+    performSearch();
   }, [searchTerm]);
 
   const deletePerson = async (matricula) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este registro?')) {
       try {
-        const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/personal', {
+        const response = await fetch(`${config.apiUrl}/personal`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

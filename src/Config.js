@@ -1,6 +1,6 @@
 
 const config = {
-    apiUrl: "https://8kzxktht-3000.usw3.devtunnels.ms"
+    apiUrl: "http://localhost:3001"
 };
 
 export default config;
