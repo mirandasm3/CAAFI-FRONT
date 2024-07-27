@@ -18,14 +18,14 @@ export default function Login() {
     const navigate = useNavigate();
 
     const logoUrl = require('../img/caafi.png');
-    const bg = require('../img/background.png');
+    const bgUrl = require('../img/background.png');
 
     const checkFormFields = () => {
         setFormUError("");
         setFormPError("");
         setUserInputIsInvalid(false);
         setPasswordInputIsInvalid(false);
-        if(matricula === "") {
+        if (matricula === "") {
             setFormUError("Usuario requerido");
             setUserInputIsInvalid(true);
             return;
@@ -34,8 +34,8 @@ export default function Login() {
             setFormUError("Usuario inválido");
             setUserInputIsInvalid(true);
             return;
-        }        
-        if(password === "") {
+        }
+        if (password === "") {
             setFormPError("Contraseña requerida");
             setPasswordInputIsInvalid(true);
             return;
@@ -50,50 +50,47 @@ export default function Login() {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': "*"
             },
-            body: JSON.stringify({matricula, password})
+            body: JSON.stringify({ matricula, password })
         })
-        .then(async r => {
-            switch(r.status) {
-                case 200: {
-                    let responseBody = await r.json();
-                    const expirationTime = new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
-                    Cookies.set('auth', responseBody.token, { expires: expirationTime });
-                    Cookies.set('auth-type', "account", { expires: expirationTime });
-                    Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
-                    Cookies.set('user-name', responseBody.name, { expires: expirationTime });
-                    Cookies.set('user-surnames', responseBody.surnames, { expires: expirationTime });
-                    navigate("/inicio");
-                    break;
+            .then(async r => {
+                switch (r.status) {
+                    case 200: {
+                        let responseBody = await r.json();
+                        const expirationTime = new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
+                        Cookies.set('auth', responseBody.token, { expires: expirationTime });
+                        Cookies.set('auth-type', "account", { expires: expirationTime });
+                        Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
+                        Cookies.set('user-name', responseBody.name, { expires: expirationTime });
+                        Cookies.set('user-surnames', responseBody.surnames, { expires: expirationTime });
+                        navigate("/inicio");
+                        break;
+                    }
+                    case 401: {
+                        setFormPError("Credenciales inválidas");
+                        break;
+                    }
+                    case 429: {
+                        setFormPError("Demasiados intentos");
+                        break;
+                    }
+                    default: {
+                        setFormPError("Error desconocido");
+                        break;
+                    }
                 }
-                case 401: {
-                    setFormPError("Credenciales inválidas");
-                    break;
-                }
-                case 429: {
-                    setFormPError("Demasiados intentos");
-                    break;
-                }
-                default: {
-                    setFormPError("Error desconocido");
-                    break;
-                }
-            }
-        })
-        .catch(error => {
-            console.error("Error en la solicitud:", error);
-            setFormPError("No se pudo conectar con el servidor.");
-        });
+            })
+            .catch(error => {
+                console.error("Error en la solicitud:", error);
+                setFormPError("No se pudo conectar con el servidor.");
+            });
     }
 
     return (
-        <div className="login-background">
+        <div className="login-background" style={{ backgroundImage: `url(${bgUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundAttachment: 'fixed', minHeight: '100vh', position: 'relative' }}>
             <div className="d-flex align-items-center justify-content-center vh-100">
                 <form autoComplete="off">
                     <div className="cardo mx-auto login-form">
                         <div className="cardo-body">
-                            <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
-                                <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
-                            </div>
                             <div className="logo">
                                 <img src={logoUrl} alt="Logo CAAFI" />
                                 <h4>Inicio de sesión</h4>

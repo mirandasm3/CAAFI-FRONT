@@ -10,49 +10,44 @@
   background-image: url('../img/background-db.png');
   background-size: cover;
   background-position: center;
-  padding: 60px;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .headerMenu .logo img {
-  width: 100px;
+  width: 90px;
   height: auto;
-  align-items: center;
+  align-self: center;
 }
 
-.body {
+.bodyd {
   background-color: white;
   flex: 1;
-  padding: 20px;
-  text-align: center;
-}
-
-.body h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
-.stats {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-.stats p {
-  margin: 0;
-}
-
-.stats .number {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-.buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.welcome-text {
+  text-align: left;
+  flex: 1;
+  margin-right: 10rem;
+}
+
+.welcome-text h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #495258;
+}
+
+.button-section {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  align-items: flex-end;
 }
 
 .button {
@@ -62,8 +57,7 @@
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  font-size: 30px;
+  font-size: 1.5em;
   margin: 4px 2px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -98,10 +92,9 @@
   margin-top: 20px;
 }
 
-.footer-text a{
+.footer-text a {
   text-align: center;
 }
-
 
 .user-icon {
   cursor: pointer;

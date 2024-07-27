@@ -21,7 +21,7 @@ export default function Dashboard() {
     }, [navigate]);
 
     const renderButtons = () => {
-        switch(userType) {
+        switch (userType) {
             case "Administrador":
                 return (
                     <div className="buttons">
@@ -55,8 +55,6 @@ export default function Dashboard() {
         }
     };
 
-    const userFromCookies = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
-
     return (
         <div className="dashboard">
             <div className="headerMenu">
@@ -65,16 +63,17 @@ export default function Dashboard() {
                 </div>
                 <UserIcon />
             </div>
-            <div className="body">
-                <h1>¡Bienvenido, {userName}!</h1>
-                <div>
+            <div className="bodyd">
+                <aside className="welcome-text">
+                    <h1>¡Bienvenido, {userName}!</h1>
+                </aside>
+                <section className="button-section">
                     {renderButtons()}
-                </div>
+                </section>
                 <div className="footer-text">
                     © 2024 Universidad Veracruzana. Todos los derechos reservados
                 </div>
                 <a className="url-caafi" href="https://www.uv.mx/caidiomas/" target="_blank" rel="noopener noreferrer">https://www.uv.mx/caidiomas/</a>
-                
             </div>
         </div>
     );

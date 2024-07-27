@@ -1,5 +1,3 @@
-
-
 .registration-container {
   display: flex;
   flex-direction: column;
@@ -10,23 +8,19 @@
   box-sizing: border-box;
 }
 
-.registration-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: left;
-  margin-bottom: 20px;
-}
-
 .registration-title {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  display: inline;
+  position: relative;
+  align-items: left;
+  margin-bottom: 2rem;
+  margin-left: -50rem;
+  margin-top: 2rem;
 }
 
 .registration-title h2 {
   margin: 0;
-  margin-left: 10px;
+  margin-left: -15px;
+  white-space: nowrap;
 }
 
 .registration-body {
@@ -34,7 +28,7 @@
   padding: 70px;
   border-radius: 18px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 1500px;
+  max-width: 1200px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -70,7 +64,8 @@
 
 .registration-form-group input[type="checkbox"] {
   width: fit-content;
-  padding: 12px;
+  padding: 15px;
+  white-space: nowrap;
 }
 
 .registration-file-upload-container {
@@ -116,17 +111,29 @@
   margin-bottom: 5px;
 }
 
+.registration-checkbox-group {
+  grid-column: span 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.registration-checkbox-group div {
+  flex: 1 1 calc(50% - 10px);
+}
+
 .registration-submit-btn {
   background-color: #152c4e;
   color: white;
   border: none;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
-  height: 60px;
+  margin-top: 1rem;
+  width: 20rem;
+  height: 3rem;
   font-size: 16px;
-  grid-column: span 2;
+  margin-left: 46rem;
   text-align: center;
 }
 

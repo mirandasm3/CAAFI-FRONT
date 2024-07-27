@@ -1,9 +1,3 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-}
-
 body {
   min-height: 100vh;
   flex-direction: column;
@@ -88,8 +82,8 @@ padding: 5px;
 
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 10px; /* Ajusta este valor según el redondeo deseado */
-  outline: none; /* Quita el borde de enfoque predeterminado */
+  border-radius: 10px;
+  outline: none;
   height: 40px;
   width: 400px;
 }
@@ -115,8 +109,8 @@ label {
 
 
 .registro-exitoso {
-  background-color: white; /* Color de fondo verde */
-  color: black; /* Color de texto blanco */
-  padding: 10px; /* Espacio interno alrededor del texto */
-  margin-top: 10px; /* Margen superior */
+  background-color: white;
+  color: black;
+  padding: 10px;
+  margin-top: 10px;
 }

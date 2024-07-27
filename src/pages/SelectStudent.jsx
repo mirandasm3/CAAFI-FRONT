@@ -33,17 +33,13 @@ export default function SelectStudent() {
           <img src={bg} alt="Fondo" className="img-fluid" />
         </div>
         <div className="col-md-6 content">
-          <div className="header">
-            <div className="logoSS">
-              <img src={logoUrl} alt="Logo CAAFI" />
-            </div>
-          </div>
+          <img src={logoUrl} alt="Logo CAAFI"/>
           <div className="white-box">
-            <div style={{ display:'flex', alignItems: 'left' }}>
+            <div style={{ display:'flex', alignItems: 'left', alignItems: 'center' }}>
               <Button variant="link" onClick={() => navigate("/caafi")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
                 <i className="bi bi-arrow-left"></i>
               </Button>
-              <h2 style={{ marginBottom: '2px', marginLeft: '-38%' }}>Registro de inscripción</h2>
+              <h2 style={{ marginBottom: '2px', marginLeft: '-35%' }}>Registro de inscripción</h2>
             </div>
             <p>Antes de continuar, selecciona los datos adecuados a tu inscripción</p>
             <div className="form-group">

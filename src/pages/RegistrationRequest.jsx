@@ -237,10 +237,8 @@ export default function RegistrationRequest() {
 
   return (
     <div className="registration-container">
-      <div className="registration-header">
-        <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
-          <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
-        </div>
+      <div className="m-login__head" style={{ position: 'absolute', top: '0', left: '10px', backgroundColor: '#0D47A1', zIndex: '1000', padding: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
+        <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
       </div>
       <div className="registration-title" style={{ display: 'flex', alignItems: 'center' }}>
         <Button variant="link" onClick={() => navigate("/registro")} style={{ color: 'black', fontSize: '30px', marginLeft: '-10px' }}>
@@ -271,7 +269,7 @@ export default function RegistrationRequest() {
             {formErrors.password && <div className="error-message">{formErrors.password}</div>}
           </div>
           {renderAdditionalFields()}
-          <div className="registration-form-group">
+          <div className="registration-checkbox-group">
             <label>Idioma(s)</label>
             <div>
               <input type="checkbox" id="ingles" name="idioma" value="1" onChange={handleIdiomaChange} />
@@ -338,8 +336,8 @@ export default function RegistrationRequest() {
                 </div>
               )}
             </div>
-          <button type="submit" className="registration-submit-btn">Enviar</button>
         </form>
+        <button type="submit" className="registration-submit-btn">Enviar</button>
       </div>
 
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
