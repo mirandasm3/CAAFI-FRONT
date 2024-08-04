@@ -10,16 +10,30 @@
   background-image: url('../img/background-db.png');
   background-size: cover;
   background-position: center;
-  padding: 1rem;
+  padding: 4rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.headerMenu .logo {
+  position: relative;
 }
 
 .headerMenu .logo img {
-  width: 90px;
+  width: 8rem;
   height: auto;
-  align-self: center;
+}
+
+.user-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
 }
 
 .bodyd {
@@ -44,62 +58,68 @@
 }
 
 .button-section {
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: flex-end;
+  align-items: center;
+  gap: 2rem;
 }
 
 .button {
   background-color: #6c757d;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 20px; /* Tamaño del padding */
   text-align: center;
   text-decoration: none;
-  font-size: 1.5em;
-  margin: 4px 2px;
+  font-size: 2em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
   border-radius: 5px;
-  width: 300px;
+  width: 30rem; /* Ajuste de ancho */
+  height: 10rem; /* Altura automática para permitir múltiples líneas */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra de los botones */
+  font-weight: bold; /* Negritas en el texto del botón */
+  white-space: normal; /* Permitir el texto en dos líneas */
+  line-height: 1.2; /* Espacio entre líneas */
+  text-align: center; /* Asegura que el texto esté centrado */
 }
 
 .button:hover {
-  background-color: #495258;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6); /* Sombra más marcada en hover */
 }
 
 .button.registro {
-  background-color: #9E9E9E;
+  background-color: #757575;
 }
 
 .button.gestion {
-  background-color: #6b6a6a;
+  background-color: #424e44;
 }
 
 .button.reportes {
-  background-color: #607D8B;
+  background-color: #4e6672;
 }
 
 .button.bitacoras {
-  background-color: #506650;
+  background-color: #505766;
 }
 
 .footer-text {
   text-align: center;
   font-size: 0.9em;
   color: #888;
-  margin-top: 20px;
+  margin-bottom: -1px;
+  padding: 10px;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 .footer-text a {
   text-align: center;
-}
-
-.user-icon {
-  cursor: pointer;
-  color: white;
-  font-size: 24px;
 }
 
 .user-menu {
@@ -128,5 +148,7 @@
 .url-caafi {
   position: fixed;
   bottom: 2px;
-  align-self: center;
+  left: 50%;
+  transform: translateX(-50%);
+  color: gray;
 }

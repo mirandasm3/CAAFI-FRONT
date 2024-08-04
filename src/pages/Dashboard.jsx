@@ -24,7 +24,7 @@ export default function Dashboard() {
         switch (userType) {
             case "Administrador":
                 return (
-                    <div className="buttons">
+                    <div className="button-section">
                         <button className="button registro" onClick={() => navigate("/registrar-personal-caafi")}>Registro de personal CAAFI</button>
                         <button className="button gestion" onClick={() => navigate("/gestion-personal")}>Gestión personal CAAFI</button>
                         <button className="button reportes" onClick={() => navigate("/reportes")}>Reportes</button>
@@ -33,7 +33,7 @@ export default function Dashboard() {
                 );
             case "Técnico":
                 return (
-                    <div className="buttons">
+                    <div className="button-section">
                         <button className="button registro" onClick={() => navigate("/inscripciones")}>Inscripciones</button>
                         <button className="button gestion" onClick={() => navigate("/gestion-alumnos")}>Gestión alumnos CAAFI</button>
                         <button className="button reportes" onClick={() => navigate("/reportes")}>Reportes</button>
@@ -44,7 +44,7 @@ export default function Dashboard() {
             case "Alumno":
             case "delex":
                 return (
-                    <div className="buttons">
+                    <div className="button-section">
                         <button className="button bitacoras" onClick={() => navigate("/bitacora")}>Bitácoras</button>
                         <button className="button gestion" onClick={() => navigate("/visitas")}>Visitas</button>
                         <button className="button bitacoras" onClick={() => navigate("/historial-bitacoras")}>Historial de bitácoras</button>

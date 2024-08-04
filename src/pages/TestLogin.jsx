@@ -19,7 +19,7 @@ export default function TestLogin() {
             <h1>Simular Inicio de Sesión</h1>
             <button onClick={() => simulateLogin('Administrador')}>Iniciar como Administrador</button>
             <button onClick={() => simulateLogin('Técnico')}>Iniciar como Técnico Académico</button>
-            <button onClick={() => simulateLogin('alumno')}>Iniciar como Alumno</button>
+            <button onClick={() => simulateLogin('Alumno')}>Iniciar como Alumno</button>
         </div>
     );
 }
