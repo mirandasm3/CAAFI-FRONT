@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PDFDocument, rgb } from 'pdf-lib';
 import "../../styles/reports.css";
+import config from '../../Config';
 
 export default function EnrollmentReports() {
     const [selectedPeriod, setSelectedPeriod] = useState('');
@@ -14,7 +15,7 @@ export default function EnrollmentReports() {
 
     const fetchPeriods = async () => {
         try {
-            const response = await fetch('https://8kzxktht-3000.usw3.devtunnels.ms/utils/periodo');
+            const response = await fetch(`${config.apiUrl}/utils/periodo`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -108,7 +109,7 @@ export default function EnrollmentReports() {
                         readOnly 
                     />
                 </div>
-                <div className="footer">
+                <div className="buttons-footer">
                     <button onClick={() => window.history.back()} className="cancel-button">Cancelar</button>
                     <button onClick={generatePDF} className="download-button">Descargar reporte</button>
                 </div>

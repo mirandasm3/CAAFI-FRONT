@@ -69,12 +69,14 @@ export default function SingUpPersonal() {
                     <UserIcon id="userIcon"/>
                 </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'left' }}>
-                <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft: '-150px' }}>
-                    <i className="bi bi-arrow-left"></i>
-                </Button>
+            <div style={{ display:'flex', alignItems: 'flex-start', marginTop: '20px' }}>
+              <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+                <i className="bi bi-arrow-left"></i>
+              </Button>
+              <h2 style={{ marginBottom: '2px', marginLeft: '-35%' }}>Registro de Personal CAAFI</h2>
             </div>
-            <h1 className="singup-title">Registro de Personal CAAFI</h1>
+
+            
             <div className="signup-form">
                 <div className="form">
                     <div className="form-group">
@@ -85,7 +87,7 @@ export default function SingUpPersonal() {
                             value={usuario}
                             onChange={(e) => {
                                 const newValue = e.target.value;
-                                if (validateUsuario(newValue)) {
+                                if(validateUsuario(newValue) || newValue === '') {
                                     setUsuario(newValue);
                                 }
                             }}
@@ -100,7 +102,7 @@ export default function SingUpPersonal() {
                             value={apellidos}
                             onChange={(e) => {
                                 const newValue = e.target.value;
-                                if (validateApellidosNombre(newValue)) {
+                                if (validateApellidosNombre(newValue) || newValue === '') {
                                     setApellidos(newValue);
                                 }
                             }}
@@ -125,7 +127,7 @@ export default function SingUpPersonal() {
                             value={nombre}
                             onChange={(e) => {
                                 const newValue = e.target.value;
-                                if (validateApellidosNombre(newValue)) {
+                                if (validateApellidosNombre(newValue) || newValue === '') {
                                     setNombre(newValue);
                                 }
                             }}
@@ -148,9 +150,7 @@ export default function SingUpPersonal() {
                             <option value="2">Técnico académico</option>
                         </select>
                     </div>
-                    <button onClick={handleSubmit} className="submit-button">
-                        Registrar
-                    </button>
+                    <Button onClick={handleSubmit} className="submit-button">Registrar</Button>
                 </div>
             </div> 
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>

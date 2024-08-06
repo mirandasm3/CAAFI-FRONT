@@ -14,6 +14,8 @@ import StudentManagement from './pages/StudentManagement';
 import SelectStudentManual from './pages/SelectStudentManual';
 import RegistrationRequestManual from './pages/RegistrationRequestManual';
 import Binnacle from './pages/Binnacle';
+import VisitsPage from './pages/VisitsPage';
+import VisitQrPage from './pages/VisitQrPage';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
               <Route path="/gestion-alumnos" element={<StudentManagement/>} />
               <Route path="/bitacora" element={<Binnacle/>} />
               <Route path="/test-login" element={<TestLogin />} /> 
+              <Route path="/visitas" element={<VisitsPage />} /> 
+              <Route path="/visitas-qr" element={<VisitQrPage />} /> 
               <Route path="*" element={<h1>404</h1>} />
           </Routes>
       </BrowserRouter>

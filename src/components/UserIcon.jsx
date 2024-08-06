@@ -12,6 +12,10 @@ export default function UserIcon() {
         Cookies.remove('user');
         Cookies.remove('auth-type');
         Cookies.remove('user-type');
+        Cookies.remove('user-name');
+        Cookies.remove('user-surnames');
+        Cookies.remove('user-matricula');
+        Cookies.remove('user-idPersona');
         navigate("/caafi");
     };
 

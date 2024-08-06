@@ -62,6 +62,9 @@ export default function Login() {
                         Cookies.set('user-type', responseBody.usertipo, { expires: expirationTime });
                         Cookies.set('user-name', responseBody.name, { expires: expirationTime });
                         Cookies.set('user-surnames', responseBody.surnames, { expires: expirationTime });
+                        Cookies.set('user-matricula', responseBody.matricula, { expires: expirationTime });
+                        Cookies.set('user-idPersona', responseBody.idPersona, { expires: expirationTime });
+                        console.log(responseBody);
                         navigate("/inicio");
                         break;
                     }

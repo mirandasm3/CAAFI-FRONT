@@ -6,6 +6,7 @@ import RoomsReports from './Reports/Rooms';
 import IdiomsReports from './Reports/Idioms';
 import UserIcon from "../components/UserIcon";
 import "../styles/reports.css";
+import { Button } from 'react-bootstrap';
 
 export default function StatsReports() {
     const [activeTab, setActiveTab] = useState('visits');
@@ -22,12 +23,14 @@ export default function StatsReports() {
                     <span className="g-font-weight-400 g-py-0 g-px-12 g-font-size-18" style={{ color: '#ffffff' }}>Universidad Veracruzana</span>
                 </div>
             </div>
-            <div className="back-button">
-                <button onClick={() => navigate(-1)} className="back-btn">
+            <div style={{ display:'flex', alignItems: 'flex-start', marginTop: '20px', marginBottom: '20px' }}>
+                <Button variant="link" onClick={() => navigate(-1)} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
                     <i className="bi bi-arrow-left"></i>
-                </button>
+                </Button>
+                <h2 style={{ marginBottom: '2px', marginLeft: '-35%' }}>Reportes de estadísticas</h2>
             </div>
-            <h2>Reportes de estadísticas</h2>
+
+
             <div className="tabs">
                 <button className={activeTab === 'visits' ? 'active' : ''} onClick={() => setActiveTab('visits')}>
                     Visitas
@@ -38,15 +41,11 @@ export default function StatsReports() {
                 <button className={activeTab === 'rooms' ? 'active' : ''} onClick={() => setActiveTab('rooms')}>
                     Salas
                 </button>
-                <button className={activeTab === 'idioms' ? 'active' : ''} onClick={() => setActiveTab('idioms')}>
-                    Idiomas
-                </button>
             </div>
             <div className="tab-content">
                 {activeTab === 'visits' && <VisitsReports />}
                 {activeTab === 'enrollments' && <EnrollmentReports />}
                 {activeTab === 'rooms' && <RoomsReports />}
-                {activeTab === 'idioms' && <IdiomsReports />}
             </div>
         </div>
     );

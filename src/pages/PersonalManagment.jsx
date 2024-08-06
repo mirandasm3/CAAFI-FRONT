@@ -85,7 +85,7 @@ export default function PersonalManagment() {
   };
 
   return (
-    <Container>
+    <>
       <div className="top-bar">
         <img src={logoURL} alt="Logo" className="logo" />
         <div className="user-info">
@@ -93,16 +93,16 @@ export default function PersonalManagment() {
           <UserIcon className="user-icon" />
         </div>
       </div>
+    <Container>
       <Row>
         <Col>
-          <div style={{ display:'flex', alignItems: 'left' }}>
-            <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
-              <i className="bi bi-arrow-left"></i>
-            </Button>
+          <div style={{ display:'flex', alignItems: 'flex-start', marginTop: '20px', marginBottom: '20px' }}>
+              <Button variant="link" onClick={() => navigate("/inicio")} style={{ color: 'black', fontSize: '30px', marginLeft:'-150px'}}>
+                <i className="bi bi-arrow-left"></i>
+              </Button>
+              <h2 style={{ marginBottom: '2px', marginLeft: '-35%' }}>Personal CAAFI</h2>
           </div>
-          <div className="header">
-            <h2>Personal CAAFI</h2>
-          </div>
+
           <InputGroup className="search-bar mb-3">
             <Form.Control
               type="text"
@@ -144,6 +144,7 @@ export default function PersonalManagment() {
         </Col>
       </Row>
     </Container>
+    </>
   );
 }
 

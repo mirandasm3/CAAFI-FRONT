@@ -64,13 +64,15 @@ export default function Dashboard() {
                 <UserIcon />
             </div>
             <div className="bodyd">
-                <aside className="welcome-text">
+                <div className="welcome-text">
                     <h1>¡Bienvenido, {userName}!</h1>
-                </aside>
+                </div>
                 <section className="button-section">
                     {renderButtons()}
                 </section>
-                <div className="footer-text">
+            </div>
+            <div className="footer">
+                <div className="text">
                     © 2024 Universidad Veracruzana. Todos los derechos reservados
                 </div>
                 <a className="url-caafi" href="https://www.uv.mx/caidiomas/" target="_blank" rel="noopener noreferrer">https://www.uv.mx/caidiomas/</a>

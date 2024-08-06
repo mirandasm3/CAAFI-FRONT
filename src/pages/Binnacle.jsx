@@ -32,10 +32,12 @@ export default function Binnacle() {
         const userSurnamesFromCookies = Cookies.get('user-surnames');
         const now = new Date();
         const formattedNow = now.toISOString();
+        const idAlumno = Cookies.get('user-idPersona');
         setFormData(prevState => ({
             ...prevState,
             horaInicio: formattedNow,
-            nombre: userNameFromCookies.toString()+" "+userSurnamesFromCookies.toString()
+            nombre: userNameFromCookies.toString()+" "+userSurnamesFromCookies.toString(),
+            idAlumno
         }));
     }, []);
 
@@ -64,18 +66,18 @@ export default function Binnacle() {
      const handleSubmit = async () => {
         if (!validateForm()) return;
         const now = new Date();
-        const formattedNow2 = now.toISOString();
-        setFormData(prevState => ({
-            ...prevState,
-            horaFin: formattedNow2
-        }));
+        const formattedNow = now.toISOString();
+        let finalFormData = {
+            ...formData,
+            horaFin: formattedNow
+        }
         try {
             const response = await fetch(`${config.apiUrl}/bitacora`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, asesoria: formData.asesoria ? 1 : 0 }),
+                body: JSON.stringify({ ...finalFormData, asesoria: formData.asesoria ? 1 : 0 }),
             });
             if (response.ok) {
                 setShowSuccessModal(true);
@@ -282,7 +284,7 @@ export default function Binnacle() {
                 <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
                     Cancelar
                 </Button>
-                <Button variant="primary" onClick={() => { handleSubmit(); }}>
+                <Button variant="primary" onClick={() => { handleSubmit(); setShowConfirmModal(false); }}>
                     Enviar
                 </Button>
             </Modal.Footer>

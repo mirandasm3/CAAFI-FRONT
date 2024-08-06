@@ -121,7 +121,7 @@
     background-color: #414852;
 }
 
-.footer {
+.buttons-footer {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;

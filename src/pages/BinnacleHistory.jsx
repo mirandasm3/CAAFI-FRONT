@@ -4,7 +4,7 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import config from "../Config";
 import { useNavigate } from "react-router-dom";
 import UserIcon from '../components/UserIcon';
-
+import Cookies from 'js-cookie';
 
 export default function BinnacleHistory() {
   const [bitacoras, setBitacoras] = useState([]);
@@ -12,11 +12,12 @@ export default function BinnacleHistory() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBitacoras();
+    const idAlumno = Cookies.get('user-idPersona') || "";
+    fetchBitacoras(idAlumno);
   }, []);
 
-  const fetchBitacoras = () => {
-    fetch(`${config.apiUrl}/bitacora`, {
+  const fetchBitacoras = (idAlumno) => {
+    fetch(`${config.apiUrl}/bitacora/${idAlumno}`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -113,7 +114,6 @@ export default function BinnacleHistory() {
               <th>Sesión</th>
               <th>Habilidad/Área</th>
               <th>Estado</th>
-              <th>Abrir</th>
               <th>Descargar</th>
             </tr>
           </thead>
@@ -125,7 +125,6 @@ export default function BinnacleHistory() {
                 <td>{bitacora.sesion}</td>
                 <td>{bitacora.habilidadArea}</td>
                 <td>{bitacora.firmaElectronica ? 'Firmada' : 'Pendiente de firma'}</td>
-                <td><button className="bitacoras-button">Abrir</button></td>
                 <td><button className="bitacoras-button" onClick={() => handleDownload(bitacora)}>Descargar</button></td>
               </tr>
             ))}
