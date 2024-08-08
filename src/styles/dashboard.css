@@ -27,11 +27,11 @@
 }
 
 .user-icon {
-  position: absolute;
+  position: fixed;
+  margin-top: 1rem;
   right: 1rem;
-  transform: translateY(-50%);
   cursor: pointer;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 24px;
 }
 
@@ -69,27 +69,27 @@
   background-color: #6c757d;
   border: none;
   color: white;
-  padding: 20px; /* Tamaño del padding */
+  padding: 20px;
   text-align: center;
   text-decoration: none;
   font-size: 2em;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
   border-radius: 5px;
-  width: 30rem; /* Ajuste de ancho */
-  height: 10rem; /* Altura automática para permitir múltiples líneas */
+  width: 30rem;
+  height: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra de los botones */
-  font-weight: bold; /* Negritas en el texto del botón */
-  white-space: normal; /* Permitir el texto en dos líneas */
-  line-height: 1.2; /* Espacio entre líneas */
-  text-align: center; /* Asegura que el texto esté centrado */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  white-space: normal;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .button:hover {
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6); /* Sombra más marcada en hover */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
 }
 
 .button.registro {

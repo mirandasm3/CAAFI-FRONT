@@ -117,8 +117,6 @@ export default function Binnacle() {
                 <UserIcon />
                 </div>
             </div>
-        <Container className="container-bitacora">
-
             <Row className="header-bar d-flex align-items-center justify-content-between">
                 <Col md={6} className="back-button">
                     <Button variant="link" onClick={() => navigate(-1)} style={{ color: 'black', fontSize: '30px', marginLeft: '-10px' }}>
@@ -127,6 +125,7 @@ export default function Binnacle() {
                     <h2 className="header-title">Bitácora</h2>
                 </Col>
             </Row>
+        <Container className="container-bitacora">
             <Form className="bitacora-form" onSubmit={handleSubmit}>
                 <Row>
                     <Col md={4}>

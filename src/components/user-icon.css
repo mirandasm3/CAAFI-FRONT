@@ -1,0 +1,33 @@
+.user-icon-container {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .user-icon {
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  .user-menu {
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 150px;
+  }
+  
+  .user-menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: black;
+    text-align: left;
+  }
+  
+  .user-menu-item:hover {
+    background-color: #f1f1f1;
+  }
+  

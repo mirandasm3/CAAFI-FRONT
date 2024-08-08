@@ -336,8 +336,9 @@ export default function RegistrationRequest() {
                 </div>
               )}
             </div>
+            <br></br>
+            <button type="submit" className="registration-submit-btn">Enviar</button>
         </form>
-        <button type="submit" className="registration-submit-btn">Enviar</button>
       </div>
 
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
